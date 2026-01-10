@@ -32,7 +32,7 @@ export const fetchWebsiteContent = async (language: string) => {
 };
 
 // Function to subscribe to website content changes
-export const subscribeToContentChanges = (language: string, callback: (data: any) => void) => {
+export const subscribeToContentChanges = (language: string, callback: (data: Record<string, string>) => void) => {
   const subscription = supabase
     .channel('website_content_changes')
     .on(

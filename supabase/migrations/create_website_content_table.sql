@@ -62,20 +62,77 @@ FOR SELECT
 USING (true);
 
 -- 创建 RLS 策略：只允许管理员修改内容
--- 请将 'admin@example.com' 替换为您的管理员邮箱
+-- 请将 'admin@ftsefinance.com' 替换为您的实际管理员邮箱
 CREATE POLICY "Allow admin update" ON public.website_content
 FOR UPDATE
-USING (auth.role() = 'authenticated' AND auth.email() = 'admin@example.com');
+USING (auth.role() = 'authenticated' AND auth.email() = 'admin@ftsefinance.com');
 
 -- 创建 RLS 策略：只允许管理员插入内容
 CREATE POLICY "Allow admin insert" ON public.website_content
 FOR INSERT
-WITH CHECK (auth.role() = 'authenticated' AND auth.email() = 'admin@example.com');
+WITH CHECK (auth.role() = 'authenticated' AND auth.email() = 'admin@ftsefinance.com');
 
 -- 创建 RLS 策略：只允许管理员删除内容
 CREATE POLICY "Allow admin delete" ON public.website_content
 FOR DELETE
-USING (auth.role() = 'authenticated' AND auth.email() = 'admin@example.com');
+USING (auth.role() = 'authenticated' AND auth.email() = 'admin@ftsefinance.com');
+
+-- 添加缺失的前端映射字段
+-- 核心价值观字段
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS coreValuesTitle text;
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS coreValue1Title text;
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS coreValue1Description text;
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS coreValue2Title text;
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS coreValue2Description text;
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS coreValue3Title text;
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS coreValue3Description text;
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS coreValue4Title text;
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS coreValue4Description text;
+
+-- 团队成员字段
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS teamMember1Name text;
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS teamMember1Position text;
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS teamMember1Background text;
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS teamMember1Expertise text;
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS teamMember2Name text;
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS teamMember2Position text;
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS teamMember2Background text;
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS teamMember2Expertise text;
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS teamMember3Name text;
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS teamMember3Position text;
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS teamMember3Background text;
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS teamMember3Expertise text;
+
+-- 公司时间线字段
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS timelineTitle text;
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS milestone1Year text;
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS milestone1Event text;
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS milestone2Year text;
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS milestone2Event text;
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS milestone3Year text;
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS milestone3Event text;
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS milestone4Year text;
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS milestone4Event text;
+
+-- 全球办事处详细信息字段
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS globalPresenceLondon text;
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS globalPresenceHongKong text;
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS globalPresenceShenzhen text;
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS globalPresenceGuangzhou text;
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS globalPresenceHefei text;
+
+-- 服务页面额外内容字段
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS servicesIPOPProcessTitle text;
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS servicesIndustryExpertiseTitle text;
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS servicesKeyAdvantagesTitle text;
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS servicesNASDAQAdvantagesTitle text;
+
+-- 图片URL字段
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS companyLogo text;
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS indexHeroImage text;
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS indexAboutImage text;
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS aboutCompanyImage text;
+ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS servicesHeroImage text;
 
 -- 添加更多字段
 ALTER TABLE public.website_content ADD COLUMN IF NOT EXISTS contactBackToHome text;

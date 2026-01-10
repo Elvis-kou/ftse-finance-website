@@ -51,7 +51,7 @@ const defaultTranslations = {
     'contact.title': 'Contact Us',
     'contact.description': 'Get in touch with our team of financial experts.',
     'contact.address': 'Address',
-    'contact.phone': '+44 20 7866 1810',
+    'contact.phone': '+852 6483 4141',
     'contact.email': 'info@ftsefinance.com',
     'contact.form.name': 'Name',
     'contact.form.email': 'Email',
@@ -802,12 +802,16 @@ const defaultTranslations = {
 };
 
 // Function to load content from CMS
-const loadCMSContent = (language: Language, contentFromSupabase?: any) => {
+// Function to load content from CMS
+const loadCMSContent = (language: Language, contentFromSupabase?: Record<string, string>) => {
   try {
     // Use content from Supabase if provided, otherwise use default
     const content = contentFromSupabase || {};
     
     return {
+      // Start with default translations
+      ...defaultTranslations[language],
+      
       // Navigation
       'nav.home': content.navHome || defaultTranslations[language]['nav.home'],
       'nav.about': content.navAbout || defaultTranslations[language]['nav.about'],
@@ -1061,52 +1065,50 @@ const loadCMSContent = (language: Language, contentFromSupabase?: any) => {
       'images.indexAboutImage': content.indexAboutImage || defaultTranslations[language]['images.indexAboutImage'],
       'images.aboutCompanyImage': content.aboutCompanyImage || defaultTranslations[language]['images.aboutCompanyImage'],
       'images.servicesHeroImage': content.servicesHeroImage || defaultTranslations[language]['images.servicesHeroImage'],
-      
-      // Keep default values for other keys
-      ...defaultTranslations[language],
     };
   } catch (error) {
     console.error('Error loading CMS content:', error);
     return defaultTranslations[language];
   }
 };
-
+// Language Provider Component
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  // State for current language
   const [language, setLanguage] = useState<Language>('en');
-  const [translations, setTranslations] = useState(defaultTranslations);
-  const [isLoading, setIsLoading] = useState(true);
+  
+  // State for translations (merged from default and CMS)
+  const [translations, setTranslations] = useState<{
+    [lang in Language]: {
+      [key: string]: string;
+    };
+  }>({
+    en: defaultTranslations.en,
+    'zh-CN': defaultTranslations['zh-CN'],
+    'zh-TW': defaultTranslations['zh-TW'],
+  });
 
-  // Load CMS content from Supabase when language changes
+  // Initialize translations and subscribe to changes
   useEffect(() => {
-    const loadContent = async () => {
-      setIsLoading(true);
+    // Fetch initial content from Supabase
+    const fetchInitialContent = async () => {
       try {
-        // Fetch content for all languages
-        const [enContent, zhCNContent, zhTWContent] = await Promise.all([
-          fetchWebsiteContent('en'),
-          fetchWebsiteContent('zh-CN'),
-          fetchWebsiteContent('zh-TW')
-        ]);
+        const enContent = await fetchWebsiteContent('en');
+        const zhCNContent = await fetchWebsiteContent('zh-CN');
+        const zhTWContent = await fetchWebsiteContent('zh-TW');
 
-        const cmsTranslations = {
+        setTranslations({
           en: loadCMSContent('en', enContent),
           'zh-CN': loadCMSContent('zh-CN', zhCNContent),
           'zh-TW': loadCMSContent('zh-TW', zhTWContent),
-        };
-        setTranslations(cmsTranslations);
+        });
       } catch (error) {
-        console.error('Error loading content from Supabase:', error);
-      } finally {
-        setIsLoading(false);
+        console.error('Error fetching initial content:', error);
       }
     };
 
-    loadContent();
-  }, [language]);
+    fetchInitialContent();
 
-  // Subscribe to content changes from Supabase
-  useEffect(() => {
-    // Subscribe to changes for all languages
+    // Subscribe to content changes for each language
     const unsubscribeEn = subscribeToContentChanges('en', (newContent) => {
       setTranslations(prev => ({
         ...prev,
@@ -1136,6 +1138,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     };
   }, []);
 
+  // Translation function
   const t = (key: string): string => {
     return translations[language][key] || key;
   };
