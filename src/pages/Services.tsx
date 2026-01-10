@@ -11,87 +11,135 @@ const Services = () => {
   const services = [
     {
       icon: <BarChart3 className="h-10 w-10 text-primary" />,
-      title: 'IPO Comprehensive Solutions',
-      description: 'Full-process IPO services from preparation to implementation, typically completed within 9-12 months.',
-      features: ['Due diligence and compliance', 'SEC registration materials', 'Roadshow assistance', 'Market timing optimization'],
+      title: t('services.ipo.title'),
+      description: t('services.ipo.description'),
+      features: [
+        t('services.ipo.feature1'),
+        t('services.ipo.feature2'),
+        t('services.ipo.feature3'),
+        t('services.ipo.feature4')
+      ],
     },
     {
       icon: <TrendingUp className="h-10 w-10 text-primary" />,
-      title: 'Market Cap Management',
-      description: 'Advanced liquidity management tools and market value stabilization strategies for post-listing performance.',
-      features: ['Quantitative trading models', 'Liquidity enhancement strategies', 'Stock price stabilization', 'Multi-account hedging'],
+      title: t('services.market.title'),
+      description: t('services.market.description'),
+      features: [
+        t('services.market.feature1'),
+        t('services.market.feature2'),
+        t('services.market.feature3'),
+        t('services.market.feature4')
+      ],
     },
     {
       icon: <Building className="h-10 w-10 text-primary" />,
-      title: 'Investment Banking Services',
-      description: 'Corporate financing, M&A restructuring, and comprehensive capital market operations.',
-      features: ['Mergers & acquisitions', 'Project financing', 'Strategic consulting', 'Structured products'],
+      title: t('services.investment.title'),
+      description: t('services.investment.description'),
+      features: [
+        t('services.investment.feature1'),
+        t('services.investment.feature2'),
+        t('services.investment.feature3'),
+        t('services.investment.feature4')
+      ],
     },
     {
       icon: <Shield className="h-10 w-10 text-primary" />,
-      title: 'Post-Listing Support',
-      description: 'Investor relations management, compliance consulting, refinancing, and strategic advisory services.',
-      features: ['Investor relations management', 'Compliance consulting', 'Refinancing solutions', 'Reverse mergers'],
+      title: t('services.support.title'),
+      description: t('services.support.description'),
+      features: [
+        t('services.support.feature1'),
+        t('services.support.feature2'),
+        t('services.support.feature3'),
+        t('services.support.feature4')
+      ],
     },
     {
       icon: <Calculator className="h-10 w-10 text-primary" />,
-      title: 'Risk Management',
-      description: 'Professional risk assessment and mitigation strategies for all stages of the listing process.',
-      features: ['Financial risk assessment', 'Legal compliance review', 'Regulatory risk management', 'Market risk analysis'],
+      title: t('services.risk.title'),
+      description: t('services.risk.description'),
+      features: [
+        t('services.risk.feature1'),
+        t('services.risk.feature2'),
+        t('services.risk.feature3'),
+        t('services.risk.feature4')
+      ],
     },
     {
       icon: <Zap className="h-10 w-10 text-primary" />,
-      title: 'Fintech Solutions',
-      description: 'Cutting-edge financial technology solutions for enhanced market performance and efficiency.',
-      features: ['Algorithmic trading systems', 'Data-driven analytics', 'Automated compliance tools', 'Real-time monitoring'],
+      title: t('services.fintech.title'),
+      description: t('services.fintech.description'),
+      features: [
+        t('services.fintech.feature1'),
+        t('services.fintech.feature2'),
+        t('services.fintech.feature3'),
+        t('services.fintech.feature4')
+      ],
     },
   ];
 
   const industries = [
     {
       icon: <TrendingUp className="h-8 w-8 text-primary" />,
-      title: 'Cryptocurrency & Blockchain',
-      description: 'Specialized IPO services for digital asset and blockchain companies.',
+      title: t('services.industries.crypto.title'),
+      description: t('services.industries.crypto.description'),
     },
     {
       icon: <Zap className="h-8 w-8 text-primary" />,
-      title: 'New Energy Vehicles',
-      description: 'Comprehensive listing solutions for electric vehicle manufacturers.',
+      title: t('services.industries.nev.title'),
+      description: t('services.industries.nev.description'),
     },
     {
       icon: <Shield className="h-8 w-8 text-primary" />,
-      title: 'Medical Devices',
-      description: 'Healthcare technology companies seeking US market access.',
+      title: t('services.industries.medical.title'),
+      description: t('services.industries.medical.description'),
     },
     {
       icon: <Globe className="h-8 w-8 text-primary" />,
-      title: 'Artificial Intelligence',
-      description: 'AI and machine learning companies preparing for public offerings.',
+      title: t('services.industries.ai.title'),
+      description: t('services.industries.ai.description'),
     },
     {
       icon: <Users className="h-8 w-8 text-primary" />,
-      title: 'Online Education',
-      description: 'EdTech platforms and educational service providers.',
+      title: t('services.industries.education.title'),
+      description: t('services.industries.education.description'),
     },
     {
       icon: <Building className="h-8 w-8 text-primary" />,
-      title: 'Technology Enterprises',
-      description: 'Software, hardware, and technology service companies.',
+      title: t('services.industries.tech.title'),
+      description: t('services.industries.tech.description'),
     },
   ];
 
   const processSteps = [
     {
-      phase: 'Pre-Listing Preparation',
-      steps: ['Cooperation agreement', 'Due diligence', 'Business model positioning', 'Financial internal control', 'Equity structure optimization']
+      phase: t('services.process.pre.title'),
+      steps: [
+        t('services.process.pre.step1'),
+        t('services.process.pre.step2'),
+        t('services.process.pre.step3'),
+        t('services.process.pre.step4'),
+        t('services.process.pre.step5')
+      ]
     },
     {
-      phase: 'Listing Implementation', 
-      steps: ['SEC registration materials', 'Prospectus disclosure', 'CSRC filing', 'SEC Q&A responses', 'Roadshow assistance']
+      phase: t('services.process.implementation.title'), 
+      steps: [
+        t('services.process.implementation.step1'),
+        t('services.process.implementation.step2'),
+        t('services.process.implementation.step3'),
+        t('services.process.implementation.step4'),
+        t('services.process.implementation.step5')
+      ]
     },
     {
-      phase: 'Post-Listing Support',
-      steps: ['Market cap management', 'Refinancing solutions', 'Reduction strategies', 'M&A opportunities', 'Investor relations']
+      phase: t('services.process.post.title'),
+      steps: [
+        t('services.process.post.step1'),
+        t('services.process.post.step2'),
+        t('services.process.post.step3'),
+        t('services.process.post.step4'),
+        t('services.process.post.step5')
+      ]
     }
   ];
 
@@ -102,14 +150,14 @@ const Services = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link to="/" className="inline-flex items-center text-primary hover:text-primary/80 mb-8">
             <ArrowLeft className="h-4 w-4 mr-2" />
-            Back to Home
+            {t('services.backToHome')}
           </Link>
           <div className="text-center">
             <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
               {t('services.title')}
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Comprehensive IPO and market cap management solutions designed to help enterprises succeed in US capital markets
+              {t('services.subtitle')}
             </p>
           </div>
         </div>
@@ -120,10 +168,10 @@ const Services = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              Our Core Services
+              {t('services.core.title')}
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              From IPO preparation to post-listing support, we provide end-to-end solutions for your capital market journey
+              {t('services.core.description')}
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -159,10 +207,10 @@ const Services = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              IPO Process Overview
+              {t('services.process.title')}
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Our structured approach ensures efficient and successful public offerings
+              {t('services.process.description')}
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
@@ -195,10 +243,10 @@ const Services = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              Industry Expertise
+              {t('services.industries.title')}
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Proven track record across diverse sectors and emerging technologies
+              {t('services.industries.description')}
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -225,7 +273,7 @@ const Services = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-6">
-                Why Choose FTSE Finance?
+                {t('services.advantages.title')}
               </h2>
               <div className="space-y-6">
                 <div className="flex items-start space-x-4">
@@ -233,8 +281,8 @@ const Services = () => {
                     <TrendingUp className="h-4 w-4 text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-foreground mb-2">Proven Track Record</h3>
-                    <p className="text-muted-foreground">Successfully completed over $50 billion in transactions across multiple sectors including crypto, new energy, healthcare, AI, and education.</p>
+                    <h3 className="font-semibold text-foreground mb-2">{t('services.advantages.trackRecord.title')}</h3>
+                    <p className="text-muted-foreground">{t('services.advantages.trackRecord.description')}</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-4">
@@ -242,8 +290,8 @@ const Services = () => {
                     <Zap className="h-4 w-4 text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-foreground mb-2">Efficient Timeline</h3>
-                    <p className="text-muted-foreground">Streamlined IPO process typically completed within 9-12 months, reducing time delays and unnecessary costs.</p>
+                    <h3 className="font-semibold text-foreground mb-2">{t('services.advantages.timeline.title')}</h3>
+                    <p className="text-muted-foreground">{t('services.advantages.timeline.description')}</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-4">
@@ -251,8 +299,8 @@ const Services = () => {
                     <DollarSign className="h-4 w-4 text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-foreground mb-2">Proprietary Capital</h3>
-                    <p className="text-muted-foreground">Utilize our own funds to participate in IPO subscriptions, ensuring successful issuance and market stability.</p>
+                    <h3 className="font-semibold text-foreground mb-2">{t('services.advantages.capital.title')}</h3>
+                    <p className="text-muted-foreground">{t('services.advantages.capital.description')}</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-4">
@@ -260,8 +308,8 @@ const Services = () => {
                     <Target className="h-4 w-4 text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-foreground mb-2">Customized Solutions</h3>
-                    <p className="text-muted-foreground">Tailored listing strategies based on industry characteristics, company scale, and financial conditions to maximize enterprise value.</p>
+                    <h3 className="font-semibold text-foreground mb-2">{t('services.advantages.custom.title')}</h3>
+                    <p className="text-muted-foreground">{t('services.advantages.custom.description')}</p>
                   </div>
                 </div>
               </div>
@@ -282,39 +330,39 @@ const Services = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              NASDAQ Listing Advantages
+              {t('services.nasdaq.title')}
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Why US markets offer superior opportunities for growth and expansion
+              {t('services.nasdaq.description')}
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             <Card className="card-elegant text-center">
               <CardContent className="pt-8">
                 <Globe className="h-8 w-8 text-primary mx-auto mb-3" />
-                <div className="text-lg font-bold text-foreground mb-2">Flexible Trading System</div>
-                <div className="text-sm text-muted-foreground">Less restrictive pre-approval process focused on information disclosure</div>
+                <div className="text-lg font-bold text-foreground mb-2">{t('services.nasdaq.flexible.title')}</div>
+                <div className="text-sm text-muted-foreground">{t('services.nasdaq.flexible.description')}</div>
               </CardContent>
             </Card>
             <Card className="card-elegant text-center">
               <CardContent className="pt-8">
                 <DollarSign className="h-8 w-8 text-primary mx-auto mb-3" />
-                <div className="text-lg font-bold text-foreground mb-2">Lower Listing Costs</div>
-                <div className="text-sm text-muted-foreground">Comprehensive legal framework with transparent regulatory environment</div>
+                <div className="text-lg font-bold text-foreground mb-2">{t('services.nasdaq.costs.title')}</div>
+                <div className="text-sm text-muted-foreground">{t('services.nasdaq.costs.description')}</div>
               </CardContent>
             </Card>
             <Card className="card-elegant text-center">
               <CardContent className="pt-8">
                 <TrendingUp className="h-8 w-8 text-primary mx-auto mb-3" />
-                <div className="text-lg font-bold text-foreground mb-2">Massive Capital Market</div>
-                <div className="text-sm text-muted-foreground">World's largest trading volume providing significant growth potential</div>
+                <div className="text-lg font-bold text-foreground mb-2">{t('services.nasdaq.market.title')}</div>
+                <div className="text-sm text-muted-foreground">{t('services.nasdaq.market.description')}</div>
               </CardContent>
             </Card>
             <Card className="card-elegant text-center">
               <CardContent className="pt-8">
                 <Building className="h-8 w-8 text-primary mx-auto mb-3" />
-                <div className="text-lg font-bold text-foreground mb-2">M&A Opportunities</div>
-                <div className="text-sm text-muted-foreground">Stock-based acquisitions to enhance business chains and market value</div>
+                <div className="text-lg font-bold text-foreground mb-2">{t('services.nasdaq.ma.title')}</div>
+                <div className="text-sm text-muted-foreground">{t('services.nasdaq.ma.description')}</div>
               </CardContent>
             </Card>
           </div>
@@ -325,20 +373,20 @@ const Services = () => {
       <section className="py-20 bg-primary text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl lg:text-4xl font-bold mb-6">
-            Ready to Go Public?
+            {t('services.cta.title')}
           </h2>
           <p className="text-xl text-primary-foreground/90 mb-8">
-            Let our experienced team guide you through the IPO process and help you achieve your capital market goals.
+            {t('services.cta.description')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/enterprise-form">
               <Button size="lg" variant="secondary">
-                Start Your IPO Journey
+                {t('services.cta.button1')}
               </Button>
             </Link>
             <Link to="/contact">
               <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
-                Schedule Consultation
+                {t('services.cta.button2')}
               </Button>
             </Link>
           </div>

@@ -10,31 +10,31 @@ const About = () => {
   const values = [
     {
       icon: <Shield className="h-8 w-8 text-primary" />,
-      title: 'Professional Excellence',
-      description: 'Delivering world-class IPO and market cap management services with uncompromising quality and precision.',
+      title: t('about.values.professional.title'),
+      description: t('about.values.professional.description'),
     },
     {
       icon: <Globe className="h-8 w-8 text-primary" />,
-      title: 'Global Reach',
-      description: 'Serving clients across multiple countries with offices in Hong Kong, London, Shenzhen, Guangzhou, and Hefei.',
+      title: t('about.values.global.title'),
+      description: t('about.values.global.description'),
     },
     {
       icon: <TrendingUp className="h-8 w-8 text-primary" />,
-      title: 'Innovation Leadership',
-      description: 'Pioneering advanced fintech solutions and quantitative trading models for optimal market performance.',
+      title: t('about.values.innovation.title'),
+      description: t('about.values.innovation.description'),
     },
     {
       icon: <Target className="h-8 w-8 text-primary" />,
-      title: 'Client Focus',
-      description: 'Committed to helping enterprises break through listing barriers and achieve sustainable growth.',
+      title: t('about.values.client.title'),
+      description: t('about.values.client.description'),
     },
   ];
 
   const milestones = [
-    { year: '2017', event: 'FTSE Finance established in Hong Kong, focusing on cross-border investment and financing' },
-    { year: '2020', event: 'Expanded services to include comprehensive IPO solutions and market cap management' },
-    { year: '2022', event: 'Achieved over $50 billion in completed transactions across multiple sectors' },
-    { year: '2024', event: 'Headquarters relocated to London, strengthening global presence and capabilities' },
+    { year: '2017', event: t('about.milestones.2017') },
+    { year: '2020', event: t('about.milestones.2020') },
+    { year: '2022', event: t('about.milestones.2022') },
+    { year: '2024', event: t('about.milestones.2024') },
   ];
 
   const teamMembers = [
@@ -65,14 +65,14 @@ const About = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link to="/" className="inline-flex items-center text-primary hover:text-primary/80 mb-8">
             <ArrowLeft className="h-4 w-4 mr-2" />
-            Back to Home
+            {t('about.backToHome')}
           </Link>
           <div className="text-center">
             <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
               {t('about.title')}
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Innovative partner for enterprise US stock listing and market value management
+              {t('about.overview.subtitle')}
             </p>
           </div>
         </div>
@@ -84,7 +84,7 @@ const About = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl font-bold text-foreground mb-6">
-                About FTSE Finance
+                {t('about.overview.title')}
               </h2>
               <div className="space-y-4 text-lg text-muted-foreground">
                 <p>
@@ -120,9 +120,7 @@ const About = () => {
               </CardHeader>
               <CardContent>
                 <CardDescription className="text-center text-lg">
-                  With cutting-edge fintech and professional service teams, we help companies break through listing barriers, 
-                  utilize fundraising capabilities and proprietary funds to build efficient market cap management systems, 
-                  empowering sustainable enterprise growth.
+                  {t('about.mission.description')}
                 </CardDescription>
               </CardContent>
             </Card>
@@ -133,8 +131,7 @@ const About = () => {
               </CardHeader>
               <CardContent>
                 <CardDescription className="text-center text-lg">
-                  To be the leading partner for Chinese private enterprises and overseas companies in cross-border investment, 
-                  financing, and listing, creating unique value for clients and helping enterprises succeed in capital markets.
+                  {t('about.vision.description')}
                 </CardDescription>
               </CardContent>
             </Card>
@@ -147,10 +144,10 @@ const About = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              Our Core Values
+              {t('about.values.title')}
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              The principles that guide our commitment to excellence and innovation
+              {t('about.values.description')}
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -176,10 +173,10 @@ const About = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              Leadership Team
+              {t('about.team.title')}
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Experienced professionals with diverse backgrounds and proven track records
+              {t('about.team.description')}
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
@@ -194,11 +191,11 @@ const About = () => {
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <div>
-                    <h4 className="font-semibold text-sm text-muted-foreground mb-1">Background</h4>
+                    <h4 className="font-semibold text-sm text-muted-foreground mb-1">{t('about.team.background')}</h4>
                     <p className="text-sm">{member.background}</p>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-sm text-muted-foreground mb-1">Expertise</h4>
+                    <h4 className="font-semibold text-sm text-muted-foreground mb-1">{t('about.team.expertise')}</h4>
                     <p className="text-sm">{member.expertise}</p>
                   </div>
                 </CardContent>
@@ -213,10 +210,10 @@ const About = () => {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              Our Journey
+              {t('about.journey.title')}
             </h2>
             <p className="text-lg text-muted-foreground">
-              Key milestones in our evolution as a leading IPO and market cap management partner
+              {t('about.journey.description')}
             </p>
           </div>
           <div className="space-y-8">
@@ -245,39 +242,39 @@ const About = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              Global Presence
+              {t('about.presence.title')}
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Strategic locations to serve our clients worldwide
+              {t('about.presence.description')}
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             <Card className="card-elegant text-center">
               <CardContent className="pt-8">
                 <Building className="h-8 w-8 text-primary mx-auto mb-3" />
-                <div className="text-xl font-bold text-foreground mb-2">London</div>
-                <div className="text-muted-foreground">Global Headquarters</div>
+                <div className="text-xl font-bold text-foreground mb-2">{t('about.presence.london')}</div>
+                <div className="text-muted-foreground">{t('about.presence.london.label')}</div>
               </CardContent>
             </Card>
             <Card className="card-elegant text-center">
               <CardContent className="pt-8">
                 <Globe className="h-8 w-8 text-primary mx-auto mb-3" />
-                <div className="text-xl font-bold text-foreground mb-2">Hong Kong</div>
-                <div className="text-muted-foreground">Asia Pacific Hub</div>
+                <div className="text-xl font-bold text-foreground mb-2">{t('about.presence.hongkong')}</div>
+                <div className="text-muted-foreground">{t('about.presence.hongkong.label')}</div>
               </CardContent>
             </Card>
             <Card className="card-elegant text-center">
               <CardContent className="pt-8">
                 <TrendingUp className="h-8 w-8 text-primary mx-auto mb-3" />
-                <div className="text-xl font-bold text-foreground mb-2">Shenzhen</div>
-                <div className="text-muted-foreground">China Operations</div>
+                <div className="text-xl font-bold text-foreground mb-2">{t('about.presence.shenzhen')}</div>
+                <div className="text-muted-foreground">{t('about.presence.shenzhen.label')}</div>
               </CardContent>
             </Card>
             <Card className="card-elegant text-center">
               <CardContent className="pt-8">
                 <DollarSign className="h-8 w-8 text-primary mx-auto mb-3" />
-                <div className="text-xl font-bold text-foreground mb-2">$50B+</div>
-                <div className="text-muted-foreground">Transactions Completed</div>
+                <div className="text-xl font-bold text-foreground mb-2">{t('stats.transactions.number')}</div>
+                <div className="text-muted-foreground">{t('stats.transactions.label')}</div>
               </CardContent>
             </Card>
           </div>

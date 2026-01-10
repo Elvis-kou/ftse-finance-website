@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { supabase, fetchWebsiteContent, subscribeToContentChanges } from '@/lib/supabaseClient';
 
 export type Language = 'en' | 'zh-CN' | 'zh-TW';
 
@@ -102,6 +103,170 @@ const defaultTranslations = {
     'common.save': 'Save',
     'common.edit': 'Edit',
     'common.delete': 'Delete',
+    
+    // Contact Page
+    'contact.backToHome': 'Back to Home',
+    'contact.sendMessage.title': 'Send us a Message',
+    'contact.sendMessage.description': 'Fill out the form below and we\'ll get back to you as soon as possible.',
+    'contact.form.company': 'Company',
+    'contact.form.subject': 'Subject',
+    'contact.form.companyPlaceholder': 'Your company name',
+    'contact.form.namePlaceholder': 'Your full name',
+    'contact.form.emailPlaceholder': 'your.email@company.com',
+    'contact.form.messagePlaceholder': 'Please describe your inquiry in detail...',
+    'contact.getInTouch': 'Get in Touch',
+    'contact.getInTouch.description': 'Reach out to us through any of the following channels',
+    'contact.globalHeadquarters': 'Global Headquarters',
+    'contact.generalInquiries': 'General Inquiries',
+    'contact.businessHours': 'Business Hours',
+    'contact.businessHours.time': 'Monday - Friday, 9:00 AM - 6:00 PM',
+    'contact.enterpriseSolutions': 'Enterprise Solutions',
+    'contact.enterpriseSolutions.description': 'For comprehensive financial assessments and custom solutions',
+    'contact.enterpriseSolutions.button': 'Complete Enterprise Form',
+    'contact.toast.success.title': 'Message Sent Successfully',
+    'contact.toast.success.description': 'Thank you for contacting us. We will respond within 24 hours.',
+    'contact.toast.error.title': 'Failed to Send Message',
+    'contact.toast.error.description': 'Please try again later or contact us directly.',
+    'contact.subjects.general': 'General Inquiry',
+    'contact.subjects.index': 'Index Solutions',
+    'contact.subjects.data': 'Data Services',
+    'contact.subjects.custom': 'Custom Index Development',
+    'contact.subjects.esg': 'ESG & Sustainable Investing',
+    'contact.subjects.partnership': 'Partnership Opportunities',
+    'contact.subjects.support': 'Technical Support',
+    'contact.subjects.media': 'Media Inquiry',
+    
+    // About Page
+    'about.backToHome': 'Back to Home',
+    'about.overview.subtitle': 'Innovative partner for enterprise US stock listing and market value management',
+    'about.overview.title': 'About FTSE Finance',
+    'about.values.title': 'Our Core Values',
+    'about.values.description': 'The principles that guide our commitment to excellence and innovation',
+    'about.values.professional.title': 'Professional Excellence',
+    'about.values.professional.description': 'Delivering world-class IPO and market cap management services with uncompromising quality and precision.',
+    'about.values.global.title': 'Global Reach',
+    'about.values.global.description': 'Serving clients across multiple countries with offices in Hong Kong, London, Shenzhen, Guangzhou, and Hefei.',
+    'about.values.innovation.title': 'Innovation Leadership',
+    'about.values.innovation.description': 'Pioneering advanced fintech solutions and quantitative trading models for optimal market performance.',
+    'about.values.client.title': 'Client Focus',
+    'about.values.client.description': 'Committed to helping enterprises break through listing barriers and achieve sustainable growth.',
+    'about.team.title': 'Leadership Team',
+    'about.team.description': 'Experienced professionals with diverse backgrounds and proven track records',
+    'about.team.background': 'Background',
+    'about.team.expertise': 'Expertise',
+    'about.journey.title': 'Our Journey',
+    'about.journey.description': 'Key milestones in our evolution as a leading IPO and market cap management partner',
+    'about.presence.title': 'Global Presence',
+    'about.presence.description': 'Strategic locations to serve our clients worldwide',
+    'about.presence.london': 'London',
+    'about.presence.london.label': 'Global Headquarters',
+    'about.presence.hongkong': 'Hong Kong',
+    'about.presence.hongkong.label': 'Asia Pacific Hub',
+    'about.presence.shenzhen': 'Shenzhen',
+    'about.presence.shenzhen.label': 'China Operations',
+    'about.milestones.2017': 'FTSE Finance established in Hong Kong, focusing on cross-border investment and financing',
+    'about.milestones.2020': 'Expanded services to include comprehensive IPO solutions and market cap management',
+    'about.milestones.2022': 'Achieved over $50 billion in completed transactions across multiple sectors',
+    'about.milestones.2024': 'Headquarters relocated to London, strengthening global presence and capabilities',
+    
+    // Services Page
+    'services.backToHome': 'Back to Home',
+    'services.subtitle': 'Comprehensive IPO and market cap management solutions designed to help enterprises succeed in US capital markets',
+    'services.core.title': 'Our Core Services',
+    'services.core.description': 'From IPO preparation to post-listing support, we provide end-to-end solutions for your capital market journey',
+    'services.ipo.title': 'IPO Comprehensive Solutions',
+    'services.ipo.description': 'Full-process IPO services from preparation to implementation, typically completed within 9-12 months.',
+    'services.ipo.feature1': 'Due diligence and compliance',
+    'services.ipo.feature2': 'SEC registration materials',
+    'services.ipo.feature3': 'Roadshow assistance',
+    'services.ipo.feature4': 'Market timing optimization',
+    'services.market.title': 'Market Cap Management',
+    'services.market.description': 'Advanced liquidity management tools and market value stabilization strategies for post-listing performance.',
+    'services.market.feature1': 'Quantitative trading models',
+    'services.market.feature2': 'Liquidity enhancement strategies',
+    'services.market.feature3': 'Stock price stabilization',
+    'services.market.feature4': 'Multi-account hedging',
+    'services.investment.title': 'Investment Banking Services',
+    'services.investment.description': 'Corporate financing, M&A restructuring, and comprehensive capital market operations.',
+    'services.investment.feature1': 'Mergers & acquisitions',
+    'services.investment.feature2': 'Project financing',
+    'services.investment.feature3': 'Strategic consulting',
+    'services.investment.feature4': 'Structured products',
+    'services.support.title': 'Post-Listing Support',
+    'services.support.description': 'Investor relations management, compliance consulting, refinancing, and strategic advisory services.',
+    'services.support.feature1': 'Investor relations management',
+    'services.support.feature2': 'Compliance consulting',
+    'services.support.feature3': 'Refinancing solutions',
+    'services.support.feature4': 'Reverse mergers',
+    'services.risk.title': 'Risk Management',
+    'services.risk.description': 'Professional risk assessment and mitigation strategies for all stages of the listing process.',
+    'services.risk.feature1': 'Financial risk assessment',
+    'services.risk.feature2': 'Legal compliance review',
+    'services.risk.feature3': 'Regulatory risk management',
+    'services.risk.feature4': 'Market risk analysis',
+    'services.fintech.title': 'Fintech Solutions',
+    'services.fintech.description': 'Cutting-edge financial technology solutions for enhanced market performance and efficiency.',
+    'services.fintech.feature1': 'Algorithmic trading systems',
+    'services.fintech.feature2': 'Data-driven analytics',
+    'services.fintech.feature3': 'Automated compliance tools',
+    'services.fintech.feature4': 'Real-time monitoring',
+    'services.process.title': 'IPO Process Overview',
+    'services.process.description': 'Our structured approach ensures efficient and successful public offerings',
+    'services.process.pre.title': 'Pre-Listing Preparation',
+    'services.process.pre.step1': 'Cooperation agreement',
+    'services.process.pre.step2': 'Due diligence',
+    'services.process.pre.step3': 'Business model positioning',
+    'services.process.pre.step4': 'Financial internal control',
+    'services.process.pre.step5': 'Equity structure optimization',
+    'services.process.implementation.title': 'Listing Implementation',
+    'services.process.implementation.step1': 'SEC registration materials',
+    'services.process.implementation.step2': 'Prospectus disclosure',
+    'services.process.implementation.step3': 'CSRC filing',
+    'services.process.implementation.step4': 'SEC Q&A responses',
+    'services.process.implementation.step5': 'Roadshow assistance',
+    'services.process.post.title': 'Post-Listing Support',
+    'services.process.post.step1': 'Market cap management',
+    'services.process.post.step2': 'Refinancing solutions',
+    'services.process.post.step3': 'Reduction strategies',
+    'services.process.post.step4': 'M&A opportunities',
+    'services.process.post.step5': 'Investor relations',
+    'services.industries.title': 'Industry Expertise',
+    'services.industries.description': 'Proven track record across diverse sectors and emerging technologies',
+    'services.industries.crypto.title': 'Cryptocurrency & Blockchain',
+    'services.industries.crypto.description': 'Specialized IPO services for digital asset and blockchain companies.',
+    'services.industries.nev.title': 'New Energy Vehicles',
+    'services.industries.nev.description': 'Comprehensive listing solutions for electric vehicle manufacturers.',
+    'services.industries.medical.title': 'Medical Devices',
+    'services.industries.medical.description': 'Healthcare technology companies seeking US market access.',
+    'services.industries.ai.title': 'Artificial Intelligence',
+    'services.industries.ai.description': 'AI and machine learning companies preparing for public offerings.',
+    'services.industries.education.title': 'Online Education',
+    'services.industries.education.description': 'EdTech platforms and educational service providers.',
+    'services.industries.tech.title': 'Technology Enterprises',
+    'services.industries.tech.description': 'Software, hardware, and technology service companies.',
+    'services.advantages.title': 'Why Choose FTSE Finance?',
+    'services.advantages.trackRecord.title': 'Proven Track Record',
+    'services.advantages.trackRecord.description': 'Successfully completed over $50 billion in transactions across multiple sectors including crypto, new energy, healthcare, AI, and education.',
+    'services.advantages.timeline.title': 'Efficient Timeline',
+    'services.advantages.timeline.description': 'Streamlined IPO process typically completed within 9-12 months, reducing time delays and unnecessary costs.',
+    'services.advantages.capital.title': 'Proprietary Capital',
+    'services.advantages.capital.description': 'Utilize our own funds to participate in IPO subscriptions, ensuring successful issuance and market stability.',
+    'services.advantages.custom.title': 'Customized Solutions',
+    'services.advantages.custom.description': 'Tailored listing strategies based on industry characteristics, company scale, and financial conditions to maximize enterprise value.',
+    'services.nasdaq.title': 'NASDAQ Listing Advantages',
+    'services.nasdaq.description': 'Why US markets offer superior opportunities for growth and expansion',
+    'services.nasdaq.flexible.title': 'Flexible Trading System',
+    'services.nasdaq.flexible.description': 'Less restrictive pre-approval process focused on information disclosure',
+    'services.nasdaq.costs.title': 'Lower Listing Costs',
+    'services.nasdaq.costs.description': 'Comprehensive legal framework with transparent regulatory environment',
+    'services.nasdaq.market.title': 'Massive Capital Market',
+    'services.nasdaq.market.description': 'World\'s largest trading volume providing significant growth potential',
+    'services.nasdaq.ma.title': 'M&A Opportunities',
+    'services.nasdaq.ma.description': 'Stock-based acquisitions to enhance business chains and market value',
+    'services.cta.title': 'Ready to Go Public?',
+    'services.cta.description': 'Let our experienced team guide you through the IPO process and help you achieve your capital market goals.',
+    'services.cta.button1': 'Start Your IPO Journey',
+    'services.cta.button2': 'Schedule Consultation'
   },
   'zh-CN': {
     // Navigation
@@ -193,6 +358,170 @@ const defaultTranslations = {
     'common.save': '保存',
     'common.edit': '编辑',
     'common.delete': '删除',
+    
+    // Contact Page
+    'contact.backToHome': '返回首页',
+    'contact.sendMessage.title': '给我们留言',
+    'contact.sendMessage.description': '请填写以下表单，我们将尽快回复您。',
+    'contact.form.company': '公司',
+    'contact.form.subject': '主题',
+    'contact.form.companyPlaceholder': '您的公司名称',
+    'contact.form.namePlaceholder': '您的全名',
+    'contact.form.emailPlaceholder': 'your.email@company.com',
+    'contact.form.messagePlaceholder': '请详细描述您的咨询...',
+    'contact.getInTouch': '联系方式',
+    'contact.getInTouch.description': '通过以下任一渠道联系我们',
+    'contact.globalHeadquarters': '全球总部',
+    'contact.generalInquiries': '一般咨询',
+    'contact.businessHours': '营业时间',
+    'contact.businessHours.time': '周一至周五，上午9:00 - 下午6:00',
+    'contact.enterpriseSolutions': '企业解决方案',
+    'contact.enterpriseSolutions.description': '提供全面的财务评估和定制解决方案',
+    'contact.enterpriseSolutions.button': '填写企业表单',
+    'contact.toast.success.title': '消息发送成功',
+    'contact.toast.success.description': '感谢您的联系。我们将在24小时内回复。',
+    'contact.toast.error.title': '消息发送失败',
+    'contact.toast.error.description': '请稍后重试或直接联系我们。',
+    'contact.subjects.general': '一般咨询',
+    'contact.subjects.index': '指数解决方案',
+    'contact.subjects.data': '数据服务',
+    'contact.subjects.custom': '自定义指数开发',
+    'contact.subjects.esg': 'ESG与可持续投资',
+    'contact.subjects.partnership': '合作机会',
+    'contact.subjects.support': '技术支持',
+    'contact.subjects.media': '媒体咨询',
+    
+    // About Page
+    'about.backToHome': '返回首页',
+    'about.overview.subtitle': '企业美股上市与市值管理的创新驱动型合作伙伴',
+    'about.overview.title': '关于富时金融',
+    'about.values.title': '我们的核心价值观',
+    'about.values.description': '指导我们追求卓越和创新的原则',
+    'about.values.professional.title': '专业卓越',
+    'about.values.professional.description': '提供世界一流的IPO和市值管理服务，以卓越的质量和精准度为标准。',
+    'about.values.global.title': '全球覆盖',
+    'about.values.global.description': '在香港、伦敦、深圳、广州和合肥设有办事处，为全球多个国家的客户提供服务。',
+    'about.values.innovation.title': '创新领导力',
+    'about.values.innovation.description': '开创先进的金融科技解决方案和量化交易模型，以实现最佳的市场表现。',
+    'about.values.client.title': '客户至上',
+    'about.values.client.description': '致力于帮助企业突破上市壁垒，实现可持续增长。',
+    'about.team.title': '领导团队',
+    'about.team.description': '经验丰富的专业人士，拥有多样化的背景和可靠的业绩记录',
+    'about.team.background': '背景',
+    'about.team.expertise': '专业领域',
+    'about.journey.title': '我们的历程',
+    'about.journey.description': '我们作为领先的IPO和市值管理合作伙伴的关键里程碑',
+    'about.presence.title': '全球布局',
+    'about.presence.description': '服务全球客户的战略位置',
+    'about.presence.london': '伦敦',
+    'about.presence.london.label': '全球总部',
+    'about.presence.hongkong': '香港',
+    'about.presence.hongkong.label': '亚太中心',
+    'about.presence.shenzhen': '深圳',
+    'about.presence.shenzhen.label': '中国运营中心',
+    'about.milestones.2017': '富时金融在香港成立，专注于跨境投资和融资',
+    'about.milestones.2020': '扩展服务范围，包括全面的IPO解决方案和市值管理',
+    'about.milestones.2022': '在多个行业完成超过500亿美元的交易',
+    'about.milestones.2024': '总部迁至伦敦，加强全球影响力和能力',
+    
+    // Services Page
+    'services.backToHome': '返回首页',
+    'services.subtitle': '全面的IPO和市值管理解决方案，帮助企业在美国资本市场取得成功',
+    'services.core.title': '我们的核心服务',
+    'services.core.description': '从IPO准备到上市后支持，我们为您的资本市场之旅提供端到端解决方案',
+    'services.ipo.title': 'IPO综合解决方案',
+    'services.ipo.description': '从准备到实施的全流程IPO服务，通常在9-12个月内完成。',
+    'services.ipo.feature1': '尽职调查和合规',
+    'services.ipo.feature2': 'SEC注册材料',
+    'services.ipo.feature3': '路演协助',
+    'services.ipo.feature4': '市场时机优化',
+    'services.market.title': '市值管理',
+    'services.market.description': '先进的流动性管理工具和市值稳定策略，提升上市后表现。',
+    'services.market.feature1': '量化交易模型',
+    'services.market.feature2': '流动性增强策略',
+    'services.market.feature3': '股价稳定',
+    'services.market.feature4': '多账户对冲',
+    'services.investment.title': '投资银行服务',
+    'services.investment.description': '企业融资、并购重组和全面的资本市场操作。',
+    'services.investment.feature1': '并购与收购',
+    'services.investment.feature2': '项目融资',
+    'services.investment.feature3': '战略咨询',
+    'services.investment.feature4': '结构化产品',
+    'services.support.title': '上市后支持',
+    'services.support.description': '投资者关系管理、合规咨询、再融资和战略顾问服务。',
+    'services.support.feature1': '投资者关系管理',
+    'services.support.feature2': '合规咨询',
+    'services.support.feature3': '再融资解决方案',
+    'services.support.feature4': '反向并购',
+    'services.risk.title': '风险管理',
+    'services.risk.description': '上市过程各个阶段的专业风险评估和缓解策略。',
+    'services.risk.feature1': '财务风险评估',
+    'services.risk.feature2': '法律合规审查',
+    'services.risk.feature3': '监管风险管理',
+    'services.risk.feature4': '市场风险分析',
+    'services.fintech.title': '金融科技解决方案',
+    'services.fintech.description': '尖端的金融技术解决方案，提升市场表现和效率。',
+    'services.fintech.feature1': '算法交易系统',
+    'services.fintech.feature2': '数据驱动分析',
+    'services.fintech.feature3': '自动化合规工具',
+    'services.fintech.feature4': '实时监控',
+    'services.process.title': 'IPO流程概述',
+    'services.process.description': '我们结构化的方法确保高效和成功的公开募股',
+    'services.process.pre.title': '上市前准备',
+    'services.process.pre.step1': '合作协议',
+    'services.process.pre.step2': '尽职调查',
+    'services.process.pre.step3': '商业模式定位',
+    'services.process.pre.step4': '财务内部控制',
+    'services.process.pre.step5': '股权结构优化',
+    'services.process.implementation.title': '上市实施',
+    'services.process.implementation.step1': 'SEC注册材料',
+    'services.process.implementation.step2': '招股说明书披露',
+    'services.process.implementation.step3': '证监会备案',
+    'services.process.implementation.step4': 'SEC问答回复',
+    'services.process.implementation.step5': '路演协助',
+    'services.process.post.title': '上市后支持',
+    'services.process.post.step1': '市值管理',
+    'services.process.post.step2': '再融资解决方案',
+    'services.process.post.step3': '减持策略',
+    'services.process.post.step4': '并购机会',
+    'services.process.post.step5': '投资者关系',
+    'services.industries.title': '行业专业知识',
+    'services.industries.description': '在不同行业和新兴技术领域拥有可靠的业绩记录',
+    'services.industries.crypto.title': '加密货币与区块链',
+    'services.industries.crypto.description': '为数字资产和区块链公司提供专业的IPO服务。',
+    'services.industries.nev.title': '新能源汽车',
+    'services.industries.nev.description': '为电动汽车制造商提供全面的上市解决方案。',
+    'services.industries.medical.title': '医疗设备',
+    'services.industries.medical.description': '寻求进入美国市场的医疗技术公司。',
+    'services.industries.ai.title': '人工智能',
+    'services.industries.ai.description': '准备公开募股的人工智能和机器学习公司。',
+    'services.industries.education.title': '在线教育',
+    'services.industries.education.description': '教育科技平台和教育服务提供商。',
+    'services.industries.tech.title': '科技企业',
+    'services.industries.tech.description': '软件、硬件和技术服务公司。',
+    'services.advantages.title': '为什么选择富时金融？',
+    'services.advantages.trackRecord.title': '可靠的业绩记录',
+    'services.advantages.trackRecord.description': '在包括加密货币、新能源、医疗保健、人工智能和教育在内的多个行业成功完成超过500亿美元的交易。',
+    'services.advantages.timeline.title': '高效的时间线',
+    'services.advantages.timeline.description': '简化的IPO流程通常在9-12个月内完成，减少时间延迟和不必要的成本。',
+    'services.advantages.capital.title': '自有资金',
+    'services.advantages.capital.description': '利用我们自己的资金参与IPO认购，确保成功发行和市场稳定。',
+    'services.advantages.custom.title': '定制解决方案',
+    'services.advantages.custom.description': '根据行业特点、公司规模和财务状况量身定制上市策略，以最大化企业价值。',
+    'services.nasdaq.title': '纳斯达克上市优势',
+    'services.nasdaq.description': '为什么美国市场为增长和扩张提供优越的机会',
+    'services.nasdaq.flexible.title': '灵活的交易系统',
+    'services.nasdaq.flexible.description': '限制较少的预批准流程，重点关注信息披露',
+    'services.nasdaq.costs.title': '较低的上市成本',
+    'services.nasdaq.costs.description': '全面的法律框架，透明的监管环境',
+    'services.nasdaq.market.title': '庞大的资本市场',
+    'services.nasdaq.market.description': '全球最大的交易量，提供巨大的增长潜力',
+    'services.nasdaq.ma.title': '并购机会',
+    'services.nasdaq.ma.description': '基于股票的收购，以增强业务链和市场价值',
+    'services.cta.title': '准备上市了吗？',
+    'services.cta.description': '让我们经验丰富的团队指导您完成IPO流程，帮助您实现资本市场目标。',
+    'services.cta.button1': '开始您的IPO之旅',
+    'services.cta.button2': '预约咨询'
   },
   'zh-TW': {
     // Navigation
@@ -284,157 +613,480 @@ const defaultTranslations = {
     'common.save': '保存',
     'common.edit': '編輯',
     'common.delete': '刪除',
+    
+    // Contact Page
+    'contact.backToHome': '返回首頁',
+    'contact.sendMessage.title': '給我們留言',
+    'contact.sendMessage.description': '請填寫以下表單，我們將儘快回覆您。',
+    'contact.form.company': '公司',
+    'contact.form.subject': '主題',
+    'contact.form.companyPlaceholder': '您的公司名稱',
+    'contact.form.namePlaceholder': '您的全名',
+    'contact.form.emailPlaceholder': 'your.email@company.com',
+    'contact.form.messagePlaceholder': '請詳細描述您的諮詢...',
+    'contact.getInTouch': '聯繫方式',
+    'contact.getInTouch.description': '通過以下任一渠道聯繫我們',
+    'contact.globalHeadquarters': '全球總部',
+    'contact.generalInquiries': '一般諮詢',
+    'contact.businessHours': '營業時間',
+    'contact.businessHours.time': '週一至週五，上午9:00 - 下午6:00',
+    'contact.enterpriseSolutions': '企業解決方案',
+    'contact.enterpriseSolutions.description': '提供全面的財務評估和定製解決方案',
+    'contact.enterpriseSolutions.button': '填寫企業表單',
+    'contact.toast.success.title': '消息發送成功',
+    'contact.toast.success.description': '感謝您的聯繫。我們將在24小時內回覆。',
+    'contact.toast.error.title': '消息發送失敗',
+    'contact.toast.error.description': '請稍後重試或直接聯繫我們。',
+    'contact.subjects.general': '一般諮詢',
+    'contact.subjects.index': '指數解決方案',
+    'contact.subjects.data': '數據服務',
+    'contact.subjects.custom': '自定義指數開發',
+    'contact.subjects.esg': 'ESG與可持續投資',
+    'contact.subjects.partnership': '合作機會',
+    'contact.subjects.support': '技術支持',
+    'contact.subjects.media': '媒體諮詢',
+    
+    // About Page
+    'about.backToHome': '返回首頁',
+    'about.overview.subtitle': '企業美股上市與市值管理的創新驅動型合作夥伴',
+    'about.overview.title': '關於富時金融',
+    'about.values.title': '我們的核心價值觀',
+    'about.values.description': '指導我們追求卓越和創新的原則',
+    'about.values.professional.title': '專業卓越',
+    'about.values.professional.description': '提供世界一流的IPO和市值管理服務，以卓越的質量和精準度為標準。',
+    'about.values.global.title': '全球覆蓋',
+    'about.values.global.description': '在香港、倫敦、深圳、廣州和合肥設有辦事處，為全球多個國家的客戶提供服務。',
+    'about.values.innovation.title': '創新領導力',
+    'about.values.innovation.description': '開創先進的金融科技解決方案和量化交易模型，以實現最佳的市場表現。',
+    'about.values.client.title': '客戶至上',
+    'about.values.client.description': '致力於幫助企業突破上市壁壘，實現可持續增長。',
+    'about.team.title': '領導團隊',
+    'about.team.description': '經驗豐富的專業人士，擁有多樣化的背景和可靠的業績記錄',
+    'about.team.background': '背景',
+    'about.team.expertise': '專業領域',
+    'about.journey.title': '我們的歷程',
+    'about.journey.description': '我們作為領先的IPO和市值管理合作夥伴的關鍵里程碑',
+    'about.presence.title': '全球佈局',
+    'about.presence.description': '服務全球客戶的戰略位置',
+    'about.presence.london': '倫敦',
+    'about.presence.london.label': '全球總部',
+    'about.presence.hongkong': '香港',
+    'about.presence.hongkong.label': '亞太中心',
+    'about.presence.shenzhen': '深圳',
+    'about.presence.shenzhen.label': '中國運營中心',
+    'about.milestones.2017': '富時金融在香港成立，專注於跨境投資和融資',
+    'about.milestones.2020': '擴展服務範圍，包括全面的IPO解決方案和市值管理',
+    'about.milestones.2022': '在多個行業完成超過500億美元的交易',
+    'about.milestones.2024': '總部遷至倫敦，加強全球影響力和能力',
+    
+    // Services Page
+    'services.backToHome': '返回首頁',
+    'services.subtitle': '全面的IPO和市值管理解決方案，幫助企業在美國資本市場取得成功',
+    'services.core.title': '我們的核心服務',
+    'services.core.description': '從IPO準備到上市後支持，我們為您的資本市場之旅提供端到端解決方案',
+    'services.ipo.title': 'IPO綜合解決方案',
+    'services.ipo.description': '從準備到實施的全流程IPO服務，通常在9-12個月內完成。',
+    'services.ipo.feature1': '盡職調查和合規',
+    'services.ipo.feature2': 'SEC註冊材料',
+    'services.ipo.feature3': '路演協助',
+    'services.ipo.feature4': '市場時機優化',
+    'services.market.title': '市值管理',
+    'services.market.description': '先進的流動性管理工具和市值穩定策略，提升上市後表現。',
+    'services.market.feature1': '量化交易模型',
+    'services.market.feature2': '流動性增強策略',
+    'services.market.feature3': '股價穩定',
+    'services.market.feature4': '多賬戶對沖',
+    'services.investment.title': '投資銀行服務',
+    'services.investment.description': '企業融資、並購重組和全面的資本市場操作。',
+    'services.investment.feature1': '並購與收購',
+    'services.investment.feature2': '項目融資',
+    'services.investment.feature3': '戰略諮詢',
+    'services.investment.feature4': '結構化產品',
+    'services.support.title': '上市後支持',
+    'services.support.description': '投資者關係管理、合規諮詢、再融資和戰略顧問服務。',
+    'services.support.feature1': '投資者關係管理',
+    'services.support.feature2': '合規諮詢',
+    'services.support.feature3': '再融資解決方案',
+    'services.support.feature4': '反向並購',
+    'services.risk.title': '風險管理',
+    'services.risk.description': '上市過程各個階段的專業風險評估和緩解策略。',
+    'services.risk.feature1': '財務風險評估',
+    'services.risk.feature2': '法律合規審查',
+    'services.risk.feature3': '監管風險管理',
+    'services.risk.feature4': '市場風險分析',
+    'services.fintech.title': '金融科技解決方案',
+    'services.fintech.description': '尖端的金融技術解決方案，提升市場表現和效率。',
+    'services.fintech.feature1': '算法交易系統',
+    'services.fintech.feature2': '數據驅動分析',
+    'services.fintech.feature3': '自動化合規工具',
+    'services.fintech.feature4': '實時監控',
+    'services.process.title': 'IPO流程概述',
+    'services.process.description': '我們結構化的方法確保高效和成功的公開募股',
+    'services.process.pre.title': '上市前準備',
+    'services.process.pre.step1': '合作協議',
+    'services.process.pre.step2': '盡職調查',
+    'services.process.pre.step3': '商業模式定位',
+    'services.process.pre.step4': '財務內部控制',
+    'services.process.pre.step5': '股權結構優化',
+    'services.process.implementation.title': '上市實施',
+    'services.process.implementation.step1': 'SEC註冊材料',
+    'services.process.implementation.step2': '招股說明書披露',
+    'services.process.implementation.step3': '證監會備案',
+    'services.process.implementation.step4': 'SEC問答回覆',
+    'services.process.implementation.step5': '路演協助',
+    'services.process.post.title': '上市後支持',
+    'services.process.post.step1': '市值管理',
+    'services.process.post.step2': '再融資解決方案',
+    'services.process.post.step3': '減持策略',
+    'services.process.post.step4': '並購機會',
+    'services.process.post.step5': '投資者關係',
+    'services.industries.title': '行業專業知識',
+    'services.industries.description': '在不同行業和新興技術領域擁有可靠的業績記錄',
+    'services.industries.crypto.title': '加密貨幣與區塊鏈',
+    'services.industries.crypto.description': '為數字資產和區塊鏈公司提供專業的IPO服務。',
+    'services.industries.nev.title': '新能源汽車',
+    'services.industries.nev.description': '為電動汽車製造商提供全面的上市解決方案。',
+    'services.industries.medical.title': '醫療設備',
+    'services.industries.medical.description': '尋求進入美國市場的醫療技術公司。',
+    'services.industries.ai.title': '人工智能',
+    'services.industries.ai.description': '準備公開募股的人工智能和機器學習公司。',
+    'services.industries.education.title': '在線教育',
+    'services.industries.education.description': '教育科技平台和教育服務提供商。',
+    'services.industries.tech.title': '科技企業',
+    'services.industries.tech.description': '軟件、硬件和技術服務公司。',
+    'services.advantages.title': '為什麼選擇富時金融？',
+    'services.advantages.trackRecord.title': '可靠的業績記錄',
+    'services.advantages.trackRecord.description': '在包括加密貨幣、新能源、醫療保健、人工智能和教育在內的多個行業成功完成超過500億美元的交易。',
+    'services.advantages.timeline.title': '高效的時間線',
+    'services.advantages.timeline.description': '簡化的IPO流程通常在9-12個月內完成，減少時間延遲和不必要的成本。',
+    'services.advantages.capital.title': '自有資金',
+    'services.advantages.capital.description': '利用我們自己的資金參與IPO認購，確保成功發行和市場穩定。',
+    'services.advantages.custom.title': '定製解決方案',
+    'services.advantages.custom.description': '根據行業特點、公司規模和財務狀況量身定製上市策略，以最大化企業價值。',
+    'services.nasdaq.title': '納斯達克上市優勢',
+    'services.nasdaq.description': '為什麼美國市場為增長和擴張提供優越的機會',
+    'services.nasdaq.flexible.title': '靈活的交易系統',
+    'services.nasdaq.flexible.description': '限制較少的預批准流程，重點關注信息披露',
+    'services.nasdaq.costs.title': '較低的上市成本',
+    'services.nasdaq.costs.description': '全面的法律框架，透明的監管環境',
+    'services.nasdaq.market.title': '龐大的資本市場',
+    'services.nasdaq.market.description': '全球最大的交易量，提供巨大的增長潛力',
+    'services.nasdaq.ma.title': '並購機會',
+    'services.nasdaq.ma.description': '基於股票的收購，以增強業務鏈和市場價值',
+    'services.cta.title': '準備上市了嗎？',
+    'services.cta.description': '讓我們經驗豐富的團隊指導您完成IPO流程，幫助您實現資本市場目標。',
+    'services.cta.button1': '開始您的IPO之旅',
+    'services.cta.button2': '預約諮詢'
   },
 };
 
 // Function to load content from CMS
-const loadCMSContent = (language: Language) => {
+const loadCMSContent = (language: Language, contentFromSupabase?: any) => {
   try {
-    const cmsContent = localStorage.getItem(`websiteContent_${language}`);
-    if (cmsContent) {
-      const content = JSON.parse(cmsContent);
-      return {
-        // Navigation
-        'nav.home': content.navHome || defaultTranslations[language]['nav.home'],
-        'nav.about': content.navAbout || defaultTranslations[language]['nav.about'],
-        'nav.services': content.navServices || defaultTranslations[language]['nav.services'],
-        'nav.contact': content.navContact || defaultTranslations[language]['nav.contact'],
-        'nav.enterprise-form': content.navEnterpriseForm || defaultTranslations[language]['nav.enterprise-form'],
-        
-        // Hero Section
-        'hero.title': content.heroTitle || defaultTranslations[language]['hero.title'],
-        'hero.subtitle': content.heroSubtitle || defaultTranslations[language]['hero.subtitle'],
-        'hero.description': content.heroDescription || defaultTranslations[language]['hero.description'],
-        'hero.cta.primary': content.heroCTAPrimary || defaultTranslations[language]['hero.cta.primary'],
-        'hero.cta.secondary': content.heroCTASecondary || defaultTranslations[language]['hero.cta.secondary'],
-        
-        // About Section
-        'about.title': content.aboutTitle || defaultTranslations[language]['about.title'],
-        'about.description': content.aboutDescription || defaultTranslations[language]['about.description'],
-        'about.mission.title': content.aboutMissionTitle || defaultTranslations[language]['about.mission.title'],
-        'about.mission.description': content.aboutMissionDescription || defaultTranslations[language]['about.mission.description'],
-        'about.vision.title': content.aboutVisionTitle || defaultTranslations[language]['about.vision.title'],
-        'about.vision.description': content.aboutVisionDescription || defaultTranslations[language]['about.vision.description'],
-        
-        // Services Section
-        'services.title': content.servicesTitle || defaultTranslations[language]['services.title'],
-        'services.financial-consulting.title': content.servicesIPOTitle || defaultTranslations[language]['services.financial-consulting.title'],
-        'services.financial-consulting.description': content.servicesIPODescription || defaultTranslations[language]['services.financial-consulting.description'],
-        'services.investment-management.title': content.servicesMarketTitle || defaultTranslations[language]['services.investment-management.title'],
-        'services.investment-management.description': content.servicesMarketDescription || defaultTranslations[language]['services.investment-management.description'],
-        'services.risk-assessment.title': content.servicesInvestmentTitle || defaultTranslations[language]['services.risk-assessment.title'],
-        'services.risk-assessment.description': content.servicesInvestmentDescription || defaultTranslations[language]['services.risk-assessment.description'],
-        'services.corporate-finance.title': content.servicesSupportTitle || defaultTranslations[language]['services.corporate-finance.title'],
-        'services.corporate-finance.description': content.servicesSupportDescription || defaultTranslations[language]['services.corporate-finance.description'],
-        
-        // Contact Section
-        'contact.title': content.contactTitle || defaultTranslations[language]['contact.title'],
-        'contact.description': content.contactDescription || defaultTranslations[language]['contact.description'],
-        'contact.address': content.contactAddress || defaultTranslations[language]['contact.address'],
-        'contact.phone': content.contactPhone || defaultTranslations[language]['contact.phone'],
-        'contact.email': content.contactEmail || defaultTranslations[language]['contact.email'],
-        'contact.form.name': content.contactFormName || defaultTranslations[language]['contact.form.name'],
-        'contact.form.email': content.contactFormEmail || defaultTranslations[language]['contact.form.email'],
-        'contact.form.message': content.contactFormMessage || defaultTranslations[language]['contact.form.message'],
-        'contact.form.submit': content.contactFormSubmit || defaultTranslations[language]['contact.form.submit'],
-        
-        // Enterprise Form
-        'enterprise.title': content.enterpriseTitle || defaultTranslations[language]['enterprise.title'],
-        'enterprise.description': content.enterpriseDescription || defaultTranslations[language]['enterprise.description'],
-        
-        // About Page Details
-        'about.company.overview': content.aboutCompanyOverview || defaultTranslations[language]['about.company.overview'],
-        'about.global.presence': content.aboutGlobalPresence || defaultTranslations[language]['about.global.presence'],
-        'about.expertise': content.aboutExpertise || defaultTranslations[language]['about.expertise'],
-        
-        // Services Page Details
-        'services.ipo.title': content.servicesIPOTitle || defaultTranslations[language]['services.ipo.title'],
-        'services.ipo.desc': content.servicesIPODescription || defaultTranslations[language]['services.ipo.desc'],
-        'services.market.title': content.servicesMarketTitle || defaultTranslations[language]['services.market.title'],
-        'services.market.desc': content.servicesMarketDescription || defaultTranslations[language]['services.market.desc'],
-        'services.investment.title': content.servicesInvestmentTitle || defaultTranslations[language]['services.investment.title'],
-        'services.investment.desc': content.servicesInvestmentDescription || defaultTranslations[language]['services.investment.desc'],
-        'services.support.title': content.servicesSupportTitle || defaultTranslations[language]['services.support.title'],
-        'services.support.desc': content.servicesSupportDescription || defaultTranslations[language]['services.support.desc'],
-        
-        // Statistics
-        'stats.transactions.number': content.statsTransactionsNumber || defaultTranslations[language]['stats.transactions.number'],
-        'stats.transactions.label': content.statsTransactionsLabel || defaultTranslations[language]['stats.transactions.label'],
-        'stats.timeline.number': content.statsTimelineNumber || defaultTranslations[language]['stats.timeline.number'],
-        'stats.timeline.label': content.statsTimelineLabel || defaultTranslations[language]['stats.timeline.label'],
-        'stats.founded.number': content.statsFoundedNumber || defaultTranslations[language]['stats.founded.number'],
-        'stats.founded.label': content.statsFoundedLabel || defaultTranslations[language]['stats.founded.label'],
-        'stats.offices.number': content.statsOfficesNumber || defaultTranslations[language]['stats.offices.number'],
-        'stats.offices.label': content.statsOfficesLabel || defaultTranslations[language]['stats.offices.label'],
-        
-        // Keep default values for other keys
-        ...defaultTranslations[language],
-      };
-    }
+    // Use content from Supabase if provided, otherwise use default
+    const content = contentFromSupabase || {};
+    
+    return {
+      // Navigation
+      'nav.home': content.navHome || defaultTranslations[language]['nav.home'],
+      'nav.about': content.navAbout || defaultTranslations[language]['nav.about'],
+      'nav.services': content.navServices || defaultTranslations[language]['nav.services'],
+      'nav.contact': content.navContact || defaultTranslations[language]['nav.contact'],
+      'nav.enterprise-form': content.navEnterpriseForm || defaultTranslations[language]['nav.enterprise-form'],
+      
+      // Hero Section
+      'hero.title': content.heroTitle || defaultTranslations[language]['hero.title'],
+      'hero.subtitle': content.heroSubtitle || defaultTranslations[language]['hero.subtitle'],
+      'hero.description': content.heroDescription || defaultTranslations[language]['hero.description'],
+      'hero.cta.primary': content.heroCTAPrimary || defaultTranslations[language]['hero.cta.primary'],
+      'hero.cta.secondary': content.heroCTASecondary || defaultTranslations[language]['hero.cta.secondary'],
+      
+      // About Section
+      'about.title': content.aboutTitle || defaultTranslations[language]['about.title'],
+      'about.description': content.aboutDescription || defaultTranslations[language]['about.description'],
+      'about.mission.title': content.aboutMissionTitle || defaultTranslations[language]['about.mission.title'],
+      'about.mission.description': content.aboutMissionDescription || defaultTranslations[language]['about.mission.description'],
+      'about.vision.title': content.aboutVisionTitle || defaultTranslations[language]['about.vision.title'],
+      'about.vision.description': content.aboutVisionDescription || defaultTranslations[language]['about.vision.description'],
+      
+      // Services Section
+      'services.title': content.servicesTitle || defaultTranslations[language]['services.title'],
+      'services.financial-consulting.title': content.servicesIPOTitle || defaultTranslations[language]['services.financial-consulting.title'],
+      'services.financial-consulting.description': content.servicesIPODescription || defaultTranslations[language]['services.financial-consulting.description'],
+      'services.investment-management.title': content.servicesMarketTitle || defaultTranslations[language]['services.investment-management.title'],
+      'services.investment-management.description': content.servicesMarketDescription || defaultTranslations[language]['services.investment-management.description'],
+      'services.risk-assessment.title': content.servicesInvestmentTitle || defaultTranslations[language]['services.risk-assessment.title'],
+      'services.risk-assessment.description': content.servicesInvestmentDescription || defaultTranslations[language]['services.risk-assessment.description'],
+      'services.corporate-finance.title': content.servicesSupportTitle || defaultTranslations[language]['services.corporate-finance.title'],
+      'services.corporate-finance.description': content.servicesSupportDescription || defaultTranslations[language]['services.corporate-finance.description'],
+      
+      // Contact Section
+      'contact.title': content.contactTitle || defaultTranslations[language]['contact.title'],
+      'contact.description': content.contactDescription || defaultTranslations[language]['contact.description'],
+      'contact.address': content.contactAddress || defaultTranslations[language]['contact.address'],
+      'contact.phone': content.contactPhone || defaultTranslations[language]['contact.phone'],
+      'contact.email': content.contactEmail || defaultTranslations[language]['contact.email'],
+      'contact.form.name': content.contactFormName || defaultTranslations[language]['contact.form.name'],
+      'contact.form.email': content.contactFormEmail || defaultTranslations[language]['contact.form.email'],
+      'contact.form.message': content.contactFormMessage || defaultTranslations[language]['contact.form.message'],
+      'contact.form.submit': content.contactFormSubmit || defaultTranslations[language]['contact.form.submit'],
+      
+      // Enterprise Form
+      'enterprise.title': content.enterpriseTitle || defaultTranslations[language]['enterprise.title'],
+      'enterprise.description': content.enterpriseDescription || defaultTranslations[language]['enterprise.description'],
+      
+      // About Page Details
+      'about.company.overview': content.aboutCompanyOverview || defaultTranslations[language]['about.company.overview'],
+      'about.global.presence': content.aboutGlobalPresence || defaultTranslations[language]['about.global.presence'],
+      'about.expertise': content.aboutExpertise || defaultTranslations[language]['about.expertise'],
+      
+      // Services Page Details
+      'services.ipo.title': content.servicesIPOTitle || defaultTranslations[language]['services.ipo.title'],
+      'services.ipo.desc': content.servicesIPODescription || defaultTranslations[language]['services.ipo.desc'],
+      'services.market.title': content.servicesMarketTitle || defaultTranslations[language]['services.market.title'],
+      'services.market.desc': content.servicesMarketDescription || defaultTranslations[language]['services.market.desc'],
+      'services.investment.title': content.servicesInvestmentTitle || defaultTranslations[language]['services.investment.title'],
+      'services.investment.desc': content.servicesInvestmentDescription || defaultTranslations[language]['services.investment.desc'],
+      'services.support.title': content.servicesSupportTitle || defaultTranslations[language]['services.support.title'],
+      'services.support.desc': content.servicesSupportDescription || defaultTranslations[language]['services.support.desc'],
+      
+      // Statistics
+      'stats.transactions.number': content.statsTransactionsNumber || defaultTranslations[language]['stats.transactions.number'],
+      'stats.transactions.label': content.statsTransactionsLabel || defaultTranslations[language]['stats.transactions.label'],
+      'stats.timeline.number': content.statsTimelineNumber || defaultTranslations[language]['stats.timeline.number'],
+      'stats.timeline.label': content.statsTimelineLabel || defaultTranslations[language]['stats.timeline.label'],
+      'stats.founded.number': content.statsFoundedNumber || defaultTranslations[language]['stats.founded.number'],
+      'stats.founded.label': content.statsFoundedLabel || defaultTranslations[language]['stats.founded.label'],
+      'stats.offices.number': content.statsOfficesNumber || defaultTranslations[language]['stats.offices.number'],
+      'stats.offices.label': content.statsOfficesLabel || defaultTranslations[language]['stats.offices.label'],
+      
+      // Contact Page
+      'contact.backToHome': content.contactBackToHome || defaultTranslations[language]['contact.backToHome'],
+      'contact.sendMessage.title': content.contactSendMessageTitle || defaultTranslations[language]['contact.sendMessage.title'],
+      'contact.sendMessage.description': content.contactSendMessageDescription || defaultTranslations[language]['contact.sendMessage.description'],
+      'contact.form.company': content.contactFormCompany || defaultTranslations[language]['contact.form.company'],
+      'contact.form.subject': content.contactFormSubject || defaultTranslations[language]['contact.form.subject'],
+      'contact.form.companyPlaceholder': content.contactFormCompanyPlaceholder || defaultTranslations[language]['contact.form.companyPlaceholder'],
+      'contact.form.namePlaceholder': content.contactFormNamePlaceholder || defaultTranslations[language]['contact.form.namePlaceholder'],
+      'contact.form.emailPlaceholder': content.contactFormEmailPlaceholder || defaultTranslations[language]['contact.form.emailPlaceholder'],
+      'contact.form.messagePlaceholder': content.contactFormMessagePlaceholder || defaultTranslations[language]['contact.form.messagePlaceholder'],
+      'contact.getInTouch': content.contactGetInTouch || defaultTranslations[language]['contact.getInTouch'],
+      'contact.getInTouch.description': content.contactGetInTouchDescription || defaultTranslations[language]['contact.getInTouch.description'],
+      'contact.globalHeadquarters': content.contactGlobalHeadquarters || defaultTranslations[language]['contact.globalHeadquarters'],
+      'contact.generalInquiries': content.contactGeneralInquiries || defaultTranslations[language]['contact.generalInquiries'],
+      'contact.businessHours': content.contactBusinessHours || defaultTranslations[language]['contact.businessHours'],
+      'contact.businessHours.time': content.contactBusinessHoursTime || defaultTranslations[language]['contact.businessHours.time'],
+      'contact.enterpriseSolutions': content.contactEnterpriseSolutions || defaultTranslations[language]['contact.enterpriseSolutions'],
+      'contact.enterpriseSolutions.description': content.contactEnterpriseSolutionsDescription || defaultTranslations[language]['contact.enterpriseSolutions.description'],
+      'contact.enterpriseSolutions.button': content.contactEnterpriseSolutionsButton || defaultTranslations[language]['contact.enterpriseSolutions.button'],
+      'contact.toast.success.title': content.contactToastSuccessTitle || defaultTranslations[language]['contact.toast.success.title'],
+      'contact.toast.success.description': content.contactToastSuccessDescription || defaultTranslations[language]['contact.toast.success.description'],
+      'contact.toast.error.title': content.contactToastErrorTitle || defaultTranslations[language]['contact.toast.error.title'],
+      'contact.toast.error.description': content.contactToastErrorDescription || defaultTranslations[language]['contact.toast.error.description'],
+      'contact.subjects.general': content.contactSubjectsGeneral || defaultTranslations[language]['contact.subjects.general'],
+      'contact.subjects.index': content.contactSubjectsIndex || defaultTranslations[language]['contact.subjects.index'],
+      'contact.subjects.data': content.contactSubjectsData || defaultTranslations[language]['contact.subjects.data'],
+      'contact.subjects.custom': content.contactSubjectsCustom || defaultTranslations[language]['contact.subjects.custom'],
+      'contact.subjects.esg': content.contactSubjectsEsg || defaultTranslations[language]['contact.subjects.esg'],
+      'contact.subjects.partnership': content.contactSubjectsPartnership || defaultTranslations[language]['contact.subjects.partnership'],
+      'contact.subjects.support': content.contactSubjectsSupport || defaultTranslations[language]['contact.subjects.support'],
+      'contact.subjects.media': content.contactSubjectsMedia || defaultTranslations[language]['contact.subjects.media'],
+      
+      // About Page
+      'about.backToHome': content.aboutBackToHome || defaultTranslations[language]['about.backToHome'],
+      'about.overview.subtitle': content.aboutOverviewSubtitle || defaultTranslations[language]['about.overview.subtitle'],
+      'about.overview.title': content.aboutOverviewTitle || defaultTranslations[language]['about.overview.title'],
+      'about.values.title': content.aboutValuesTitle || defaultTranslations[language]['about.values.title'],
+      'about.values.description': content.aboutValuesDescription || defaultTranslations[language]['about.values.description'],
+      'about.values.professional.title': content.aboutValuesProfessionalTitle || defaultTranslations[language]['about.values.professional.title'],
+      'about.values.professional.description': content.aboutValuesProfessionalDescription || defaultTranslations[language]['about.values.professional.description'],
+      'about.values.global.title': content.aboutValuesGlobalTitle || defaultTranslations[language]['about.values.global.title'],
+      'about.values.global.description': content.aboutValuesGlobalDescription || defaultTranslations[language]['about.values.global.description'],
+      'about.values.innovation.title': content.aboutValuesInnovationTitle || defaultTranslations[language]['about.values.innovation.title'],
+      'about.values.innovation.description': content.aboutValuesInnovationDescription || defaultTranslations[language]['about.values.innovation.description'],
+      'about.values.client.title': content.aboutValuesClientTitle || defaultTranslations[language]['about.values.client.title'],
+      'about.values.client.description': content.aboutValuesClientDescription || defaultTranslations[language]['about.values.client.description'],
+      'about.team.title': content.aboutTeamTitle || defaultTranslations[language]['about.team.title'],
+      'about.team.description': content.aboutTeamDescription || defaultTranslations[language]['about.team.description'],
+      'about.team.background': content.aboutTeamBackground || defaultTranslations[language]['about.team.background'],
+      'about.team.expertise': content.aboutTeamExpertise || defaultTranslations[language]['about.team.expertise'],
+      'about.journey.title': content.aboutJourneyTitle || defaultTranslations[language]['about.journey.title'],
+      'about.journey.description': content.aboutJourneyDescription || defaultTranslations[language]['about.journey.description'],
+      'about.presence.title': content.aboutPresenceTitle || defaultTranslations[language]['about.presence.title'],
+      'about.presence.description': content.aboutPresenceDescription || defaultTranslations[language]['about.presence.description'],
+      'about.presence.london': content.aboutPresenceLondon || defaultTranslations[language]['about.presence.london'],
+      'about.presence.london.label': content.aboutPresenceLondonLabel || defaultTranslations[language]['about.presence.london.label'],
+      'about.presence.hongkong': content.aboutPresenceHongkong || defaultTranslations[language]['about.presence.hongkong'],
+      'about.presence.hongkong.label': content.aboutPresenceHongkongLabel || defaultTranslations[language]['about.presence.hongkong.label'],
+      'about.presence.shenzhen': content.aboutPresenceShenzhen || defaultTranslations[language]['about.presence.shenzhen'],
+      'about.presence.shenzhen.label': content.aboutPresenceShenzhenLabel || defaultTranslations[language]['about.presence.shenzhen.label'],
+      'about.milestones.2017': content.aboutMilestones2017 || defaultTranslations[language]['about.milestones.2017'],
+      'about.milestones.2020': content.aboutMilestones2020 || defaultTranslations[language]['about.milestones.2020'],
+      'about.milestones.2022': content.aboutMilestones2022 || defaultTranslations[language]['about.milestones.2022'],
+      'about.milestones.2024': content.aboutMilestones2024 || defaultTranslations[language]['about.milestones.2024'],
+      
+      // Services Page
+      'services.backToHome': content.servicesBackToHome || defaultTranslations[language]['services.backToHome'],
+      'services.subtitle': content.servicesSubtitle || defaultTranslations[language]['services.subtitle'],
+      'services.core.title': content.servicesCoreTitle || defaultTranslations[language]['services.core.title'],
+      'services.core.description': content.servicesCoreDescription || defaultTranslations[language]['services.core.description'],
+      'services.ipo.feature1': content.servicesIPOFeature1 || defaultTranslations[language]['services.ipo.feature1'],
+      'services.ipo.feature2': content.servicesIPOFeature2 || defaultTranslations[language]['services.ipo.feature2'],
+      'services.ipo.feature3': content.servicesIPOFeature3 || defaultTranslations[language]['services.ipo.feature3'],
+      'services.ipo.feature4': content.servicesIPOFeature4 || defaultTranslations[language]['services.ipo.feature4'],
+      'services.market.feature1': content.servicesMarketFeature1 || defaultTranslations[language]['services.market.feature1'],
+      'services.market.feature2': content.servicesMarketFeature2 || defaultTranslations[language]['services.market.feature2'],
+      'services.market.feature3': content.servicesMarketFeature3 || defaultTranslations[language]['services.market.feature3'],
+      'services.market.feature4': content.servicesMarketFeature4 || defaultTranslations[language]['services.market.feature4'],
+      'services.investment.feature1': content.servicesInvestmentFeature1 || defaultTranslations[language]['services.investment.feature1'],
+      'services.investment.feature2': content.servicesInvestmentFeature2 || defaultTranslations[language]['services.investment.feature2'],
+      'services.investment.feature3': content.servicesInvestmentFeature3 || defaultTranslations[language]['services.investment.feature3'],
+      'services.investment.feature4': content.servicesInvestmentFeature4 || defaultTranslations[language]['services.investment.feature4'],
+      'services.support.feature1': content.servicesSupportFeature1 || defaultTranslations[language]['services.support.feature1'],
+      'services.support.feature2': content.servicesSupportFeature2 || defaultTranslations[language]['services.support.feature2'],
+      'services.support.feature3': content.servicesSupportFeature3 || defaultTranslations[language]['services.support.feature3'],
+      'services.support.feature4': content.servicesSupportFeature4 || defaultTranslations[language]['services.support.feature4'],
+      'services.risk.title': content.servicesRiskTitle || defaultTranslations[language]['services.risk.title'],
+      'services.risk.description': content.servicesRiskDescription || defaultTranslations[language]['services.risk.description'],
+      'services.risk.feature1': content.servicesRiskFeature1 || defaultTranslations[language]['services.risk.feature1'],
+      'services.risk.feature2': content.servicesRiskFeature2 || defaultTranslations[language]['services.risk.feature2'],
+      'services.risk.feature3': content.servicesRiskFeature3 || defaultTranslations[language]['services.risk.feature3'],
+      'services.risk.feature4': content.servicesRiskFeature4 || defaultTranslations[language]['services.risk.feature4'],
+      'services.fintech.title': content.servicesFintechTitle || defaultTranslations[language]['services.fintech.title'],
+      'services.fintech.description': content.servicesFintechDescription || defaultTranslations[language]['services.fintech.description'],
+      'services.fintech.feature1': content.servicesFintechFeature1 || defaultTranslations[language]['services.fintech.feature1'],
+      'services.fintech.feature2': content.servicesFintechFeature2 || defaultTranslations[language]['services.fintech.feature2'],
+      'services.fintech.feature3': content.servicesFintechFeature3 || defaultTranslations[language]['services.fintech.feature3'],
+      'services.fintech.feature4': content.servicesFintechFeature4 || defaultTranslations[language]['services.fintech.feature4'],
+      'services.process.title': content.servicesProcessTitle || defaultTranslations[language]['services.process.title'],
+      'services.process.description': content.servicesProcessDescription || defaultTranslations[language]['services.process.description'],
+      'services.process.pre.title': content.servicesProcessPreTitle || defaultTranslations[language]['services.process.pre.title'],
+      'services.process.pre.step1': content.servicesProcessPreStep1 || defaultTranslations[language]['services.process.pre.step1'],
+      'services.process.pre.step2': content.servicesProcessPreStep2 || defaultTranslations[language]['services.process.pre.step2'],
+      'services.process.pre.step3': content.servicesProcessPreStep3 || defaultTranslations[language]['services.process.pre.step3'],
+      'services.process.pre.step4': content.servicesProcessPreStep4 || defaultTranslations[language]['services.process.pre.step4'],
+      'services.process.pre.step5': content.servicesProcessPreStep5 || defaultTranslations[language]['services.process.pre.step5'],
+      'services.process.implementation.title': content.servicesProcessImplementationTitle || defaultTranslations[language]['services.process.implementation.title'],
+      'services.process.implementation.step1': content.servicesProcessImplementationStep1 || defaultTranslations[language]['services.process.implementation.step1'],
+      'services.process.implementation.step2': content.servicesProcessImplementationStep2 || defaultTranslations[language]['services.process.implementation.step2'],
+      'services.process.implementation.step3': content.servicesProcessImplementationStep3 || defaultTranslations[language]['services.process.implementation.step3'],
+      'services.process.implementation.step4': content.servicesProcessImplementationStep4 || defaultTranslations[language]['services.process.implementation.step4'],
+      'services.process.implementation.step5': content.servicesProcessImplementationStep5 || defaultTranslations[language]['services.process.implementation.step5'],
+      'services.process.post.title': content.servicesProcessPostTitle || defaultTranslations[language]['services.process.post.title'],
+      'services.process.post.step1': content.servicesProcessPostStep1 || defaultTranslations[language]['services.process.post.step1'],
+      'services.process.post.step2': content.servicesProcessPostStep2 || defaultTranslations[language]['services.process.post.step2'],
+      'services.process.post.step3': content.servicesProcessPostStep3 || defaultTranslations[language]['services.process.post.step3'],
+      'services.process.post.step4': content.servicesProcessPostStep4 || defaultTranslations[language]['services.process.post.step4'],
+      'services.process.post.step5': content.servicesProcessPostStep5 || defaultTranslations[language]['services.process.post.step5'],
+      'services.industries.title': content.servicesIndustriesTitle || defaultTranslations[language]['services.industries.title'],
+      'services.industries.description': content.servicesIndustriesDescription || defaultTranslations[language]['services.industries.description'],
+      'services.industries.crypto.title': content.servicesIndustriesCryptoTitle || defaultTranslations[language]['services.industries.crypto.title'],
+      'services.industries.crypto.description': content.servicesIndustriesCryptoDescription || defaultTranslations[language]['services.industries.crypto.description'],
+      'services.industries.nev.title': content.servicesIndustriesNevTitle || defaultTranslations[language]['services.industries.nev.title'],
+      'services.industries.nev.description': content.servicesIndustriesNevDescription || defaultTranslations[language]['services.industries.nev.description'],
+      'services.industries.medical.title': content.servicesIndustriesMedicalTitle || defaultTranslations[language]['services.industries.medical.title'],
+      'services.industries.medical.description': content.servicesIndustriesMedicalDescription || defaultTranslations[language]['services.industries.medical.description'],
+      'services.industries.ai.title': content.servicesIndustriesAiTitle || defaultTranslations[language]['services.industries.ai.title'],
+      'services.industries.ai.description': content.servicesIndustriesAiDescription || defaultTranslations[language]['services.industries.ai.description'],
+      'services.industries.education.title': content.servicesIndustriesEducationTitle || defaultTranslations[language]['services.industries.education.title'],
+      'services.industries.education.description': content.servicesIndustriesEducationDescription || defaultTranslations[language]['services.industries.education.description'],
+      'services.industries.tech.title': content.servicesIndustriesTechTitle || defaultTranslations[language]['services.industries.tech.title'],
+      'services.industries.tech.description': content.servicesIndustriesTechDescription || defaultTranslations[language]['services.industries.tech.description'],
+      'services.advantages.title': content.servicesAdvantagesTitle || defaultTranslations[language]['services.advantages.title'],
+      'services.advantages.trackRecord.title': content.servicesAdvantagesTrackRecordTitle || defaultTranslations[language]['services.advantages.trackRecord.title'],
+      'services.advantages.trackRecord.description': content.servicesAdvantagesTrackRecordDescription || defaultTranslations[language]['services.advantages.trackRecord.description'],
+      'services.advantages.timeline.title': content.servicesAdvantagesTimelineTitle || defaultTranslations[language]['services.advantages.timeline.title'],
+      'services.advantages.timeline.description': content.servicesAdvantagesTimelineDescription || defaultTranslations[language]['services.advantages.timeline.description'],
+      'services.advantages.capital.title': content.servicesAdvantagesCapitalTitle || defaultTranslations[language]['services.advantages.capital.title'],
+      'services.advantages.capital.description': content.servicesAdvantagesCapitalDescription || defaultTranslations[language]['services.advantages.capital.description'],
+      'services.advantages.custom.title': content.servicesAdvantagesCustomTitle || defaultTranslations[language]['services.advantages.custom.title'],
+      'services.advantages.custom.description': content.servicesAdvantagesCustomDescription || defaultTranslations[language]['services.advantages.custom.description'],
+      'services.nasdaq.title': content.servicesNasdaqTitle || defaultTranslations[language]['services.nasdaq.title'],
+      'services.nasdaq.description': content.servicesNasdaqDescription || defaultTranslations[language]['services.nasdaq.description'],
+      'services.nasdaq.flexible.title': content.servicesNasdaqFlexibleTitle || defaultTranslations[language]['services.nasdaq.flexible.title'],
+      'services.nasdaq.flexible.description': content.servicesNasdaqFlexibleDescription || defaultTranslations[language]['services.nasdaq.flexible.description'],
+      'services.nasdaq.costs.title': content.servicesNasdaqCostsTitle || defaultTranslations[language]['services.nasdaq.costs.title'],
+      'services.nasdaq.costs.description': content.servicesNasdaqCostsDescription || defaultTranslations[language]['services.nasdaq.costs.description'],
+      'services.nasdaq.market.title': content.servicesNasdaqMarketTitle || defaultTranslations[language]['services.nasdaq.market.title'],
+      'services.nasdaq.market.description': content.servicesNasdaqMarketDescription || defaultTranslations[language]['services.nasdaq.market.description'],
+      'services.nasdaq.ma.title': content.servicesNasdaqMaTitle || defaultTranslations[language]['services.nasdaq.ma.title'],
+      'services.nasdaq.ma.description': content.servicesNasdaqMaDescription || defaultTranslations[language]['services.nasdaq.ma.description'],
+      'services.cta.title': content.servicesCtaTitle || defaultTranslations[language]['services.cta.title'],
+      'services.cta.description': content.servicesCtaDescription || defaultTranslations[language]['services.cta.description'],
+      'services.cta.button1': content.servicesCtaButton1 || defaultTranslations[language]['services.cta.button1'],
+      'services.cta.button2': content.servicesCtaButton2 || defaultTranslations[language]['services.cta.button2'],
+      
+      // Keep default values for other keys
+      ...defaultTranslations[language],
+    };
   } catch (error) {
     console.error('Error loading CMS content:', error);
+    return defaultTranslations[language];
   }
-  return defaultTranslations[language];
 };
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [language, setLanguage] = useState<Language>('en');
   const [translations, setTranslations] = useState(defaultTranslations);
+  const [isLoading, setIsLoading] = useState(true);
 
+  // Load CMS content from Supabase when language changes
   useEffect(() => {
-    // Load CMS content when language changes
-    const cmsTranslations = {
-      en: loadCMSContent('en'),
-      'zh-CN': loadCMSContent('zh-CN'),
-      'zh-TW': loadCMSContent('zh-TW'),
-    };
-    setTranslations(cmsTranslations);
-  }, [language]);
+    const loadContent = async () => {
+      setIsLoading(true);
+      try {
+        // Fetch content for all languages
+        const [enContent, zhCNContent, zhTWContent] = await Promise.all([
+          fetchWebsiteContent('en'),
+          fetchWebsiteContent('zh-CN'),
+          fetchWebsiteContent('zh-TW')
+        ]);
 
-  // Listen for storage changes to update content in real-time
-  useEffect(() => {
-    const handleStorageChange = (e: StorageEvent) => {
-      if (e.key?.startsWith('websiteContent_')) {
         const cmsTranslations = {
-          en: loadCMSContent('en'),
-          'zh-CN': loadCMSContent('zh-CN'),
-          'zh-TW': loadCMSContent('zh-TW'),
+          en: loadCMSContent('en', enContent),
+          'zh-CN': loadCMSContent('zh-CN', zhCNContent),
+          'zh-TW': loadCMSContent('zh-TW', zhTWContent),
         };
         setTranslations(cmsTranslations);
-      }
-    };
-
-    // Check for updates from CMS every 5 seconds
-    const checkForUpdates = () => {
-      try {
-        const syncData = localStorage.getItem('ftse_cms_sync');
-        if (syncData) {
-          const { timestamp, language: syncLang, content } = JSON.parse(syncData);
-          const lastCheck = localStorage.getItem('last_cms_check');
-          const lastCheckTime = lastCheck ? parseInt(lastCheck) : 0;
-          
-          if (timestamp > lastCheckTime) {
-            localStorage.setItem('last_cms_check', timestamp.toString());
-            const cmsTranslations = {
-              en: loadCMSContent('en'),
-              'zh-CN': loadCMSContent('zh-CN'),
-              'zh-TW': loadCMSContent('zh-TW'),
-            };
-            setTranslations(cmsTranslations);
-          }
-        }
       } catch (error) {
-        console.error('Error checking for CMS updates:', error);
+        console.error('Error loading content from Supabase:', error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
-    const interval = setInterval(checkForUpdates, 5000); // Check every 5 seconds
-    
-    window.addEventListener('storage', handleStorageChange);
-    
+    loadContent();
+  }, [language]);
+
+  // Subscribe to content changes from Supabase
+  useEffect(() => {
+    // Subscribe to changes for all languages
+    const unsubscribeEn = subscribeToContentChanges('en', (newContent) => {
+      setTranslations(prev => ({
+        ...prev,
+        en: loadCMSContent('en', newContent)
+      }));
+    });
+
+    const unsubscribeZhCN = subscribeToContentChanges('zh-CN', (newContent) => {
+      setTranslations(prev => ({
+        ...prev,
+        'zh-CN': loadCMSContent('zh-CN', newContent)
+      }));
+    });
+
+    const unsubscribeZhTW = subscribeToContentChanges('zh-TW', (newContent) => {
+      setTranslations(prev => ({
+        ...prev,
+        'zh-TW': loadCMSContent('zh-TW', newContent)
+      }));
+    });
+
     return () => {
-      window.removeEventListener('storage', handleStorageChange);
-      clearInterval(interval);
+      // Unsubscribe from all channels
+      unsubscribeEn();
+      unsubscribeZhCN();
+      unsubscribeZhTW();
     };
   }, []);
 

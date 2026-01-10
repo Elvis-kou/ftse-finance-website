@@ -33,14 +33,14 @@ const Contact = () => {
 
 
   const subjects = [
-    'General Inquiry',
-    'Index Solutions',
-    'Data Services',
-    'Custom Index Development',
-    'ESG & Sustainable Investing',
-    'Partnership Opportunities',
-    'Technical Support',
-    'Media Inquiry',
+    { value: 'general', label: t('contact.subjects.general') },
+    { value: 'index', label: t('contact.subjects.index') },
+    { value: 'data', label: t('contact.subjects.data') },
+    { value: 'custom', label: t('contact.subjects.custom') },
+    { value: 'esg', label: t('contact.subjects.esg') },
+    { value: 'partnership', label: t('contact.subjects.partnership') },
+    { value: 'support', label: t('contact.subjects.support') },
+    { value: 'media', label: t('contact.subjects.media') },
   ];
 
   const handleInputChange = (field: keyof ContactForm, value: string) => {
@@ -56,8 +56,8 @@ const Contact = () => {
       await new Promise(resolve => setTimeout(resolve, 2000));
       
       toast({
-        title: 'Message Sent Successfully',
-        description: 'Thank you for contacting us. We will respond within 24 hours.',
+        title: t('contact.toast.success.title'),
+        description: t('contact.toast.success.description'),
       });
 
       // Reset form
@@ -70,8 +70,8 @@ const Contact = () => {
       });
     } catch (error) {
       toast({
-        title: 'Failed to Send Message',
-        description: 'Please try again later or contact us directly.',
+        title: t('contact.toast.error.title'),
+        description: t('contact.toast.error.description'),
         variant: 'destructive',
       });
     } finally {
@@ -86,7 +86,7 @@ const Contact = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link to="/" className="inline-flex items-center text-primary hover:text-primary/80 mb-8">
             <ArrowLeft className="h-4 w-4 mr-2" />
-            Back to Home
+            {t('contact.backToHome')}
           </Link>
           <div className="text-center">
             <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
@@ -108,10 +108,10 @@ const Contact = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Send className="h-5 w-5 text-primary" />
-                  Send us a Message
+                  {t('contact.sendMessage.title')}
                 </CardTitle>
                 <CardDescription>
-                  Fill out the form below and we'll get back to you as soon as possible.
+                  {t('contact.sendMessage.description')}
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -123,7 +123,7 @@ const Contact = () => {
                         id="name"
                         value={formData.name}
                         onChange={(e) => handleInputChange('name', e.target.value)}
-                        placeholder="Your full name"
+                        placeholder={t('contact.form.namePlaceholder')}
                         required
                       />
                     </div>
@@ -134,30 +134,30 @@ const Contact = () => {
                         type="email"
                         value={formData.email}
                         onChange={(e) => handleInputChange('email', e.target.value)}
-                        placeholder="your.email@company.com"
+                        placeholder={t('contact.form.emailPlaceholder')}
                         required
                       />
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="company">Company</Label>
+                    <Label htmlFor="company">{t('contact.form.company')}</Label>
                     <Input
                       id="company"
                       value={formData.company}
                       onChange={(e) => handleInputChange('company', e.target.value)}
-                      placeholder="Your company name"
+                      placeholder={t('contact.form.companyPlaceholder')}
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="subject">Subject</Label>
+                    <Label htmlFor="subject">{t('contact.form.subject')}</Label>
                     <Select value={formData.subject} onValueChange={(value) => handleInputChange('subject', value)}>
                       <SelectTrigger>
                         <SelectValue placeholder="Select a subject" />
                       </SelectTrigger>
                       <SelectContent>
                         {subjects.map((subject) => (
-                          <SelectItem key={subject} value={subject}>
-                            {subject}
+                          <SelectItem key={subject.value} value={subject.value}>
+                            {subject.label}
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -169,7 +169,7 @@ const Contact = () => {
                       id="message"
                       value={formData.message}
                       onChange={(e) => handleInputChange('message', e.target.value)}
-                      placeholder="Please describe your inquiry in detail..."
+                      placeholder={t('contact.form.messagePlaceholder')}
                       rows={5}
                       required
                     />
@@ -190,31 +190,31 @@ const Contact = () => {
             <div className="space-y-8">
               <Card className="card-elegant">
                 <CardHeader>
-                  <CardTitle>Get in Touch</CardTitle>
+                  <CardTitle>{t('contact.getInTouch')}</CardTitle>
                   <CardDescription>
-                    Reach out to us through any of the following channels
+                    {t('contact.getInTouch.description')}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
                   <div className="flex items-center space-x-4">
                     <Phone className="h-5 w-5 text-primary" />
                     <div>
-                      <div className="font-medium">Global Headquarters</div>
-                      <div className="text-muted-foreground">+44 20 7866 1810</div>
+                      <div className="font-medium">{t('contact.globalHeadquarters')}</div>
+                      <div className="text-muted-foreground">{t('contact.phone')}</div>
                     </div>
                   </div>
                   <div className="flex items-center space-x-4">
                     <Mail className="h-5 w-5 text-primary" />
                     <div>
-                      <div className="font-medium">General Inquiries</div>
-                      <div className="text-muted-foreground">info@ftsefinance.com</div>
+                      <div className="font-medium">{t('contact.generalInquiries')}</div>
+                      <div className="text-muted-foreground">{t('contact.email')}</div>
                     </div>
                   </div>
                   <div className="flex items-center space-x-4">
                     <Clock className="h-5 w-5 text-primary" />
                     <div>
-                      <div className="font-medium">Business Hours</div>
-                      <div className="text-muted-foreground">Monday - Friday, 9:00 AM - 6:00 PM</div>
+                      <div className="font-medium">{t('contact.businessHours')}</div>
+                      <div className="text-muted-foreground">{t('contact.businessHours.time')}</div>
                     </div>
                   </div>
                 </CardContent>
@@ -222,15 +222,15 @@ const Contact = () => {
 
               <Card className="card-elegant">
                 <CardHeader>
-                  <CardTitle>Enterprise Solutions</CardTitle>
+                  <CardTitle>{t('contact.enterpriseSolutions')}</CardTitle>
                   <CardDescription>
-                    For comprehensive financial assessments and custom solutions
+                    {t('contact.enterpriseSolutions.description')}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <Link to="/enterprise-form">
                     <Button className="w-full" variant="outline">
-                      Complete Enterprise Form
+                      {t('contact.enterpriseSolutions.button')}
                     </Button>
                   </Link>
                 </CardContent>
