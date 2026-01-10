@@ -104,6 +104,13 @@ const defaultTranslations = {
     'common.edit': 'Edit',
     'common.delete': 'Delete',
     
+    // Image URLs
+    'images.companyLogo': '/images/logo.png',
+    'images.indexHeroImage': '/images/index-hero.jpg',
+    'images.indexAboutImage': '/images/index-about.jpg',
+    'images.aboutCompanyImage': '/images/about-company.jpg',
+    'images.servicesHeroImage': '/images/services-hero.jpg',
+    
     // Contact Page
     'contact.backToHome': 'Back to Home',
     'contact.sendMessage.title': 'Send us a Message',
@@ -358,6 +365,13 @@ const defaultTranslations = {
     'common.save': '保存',
     'common.edit': '编辑',
     'common.delete': '删除',
+    
+    // Image URLs
+    'images.companyLogo': '/images/logo.png',
+    'images.indexHeroImage': '/images/index-hero.jpg',
+    'images.indexAboutImage': '/images/index-about.jpg',
+    'images.aboutCompanyImage': '/images/about-company.jpg',
+    'images.servicesHeroImage': '/images/services-hero.jpg',
     
     // Contact Page
     'contact.backToHome': '返回首页',
@@ -614,6 +628,13 @@ const defaultTranslations = {
     'common.edit': '編輯',
     'common.delete': '刪除',
     
+    // Image URLs
+    'images.companyLogo': '/images/logo.png',
+    'images.indexHeroImage': '/images/index-hero.jpg',
+    'images.indexAboutImage': '/images/index-about.jpg',
+    'images.aboutCompanyImage': '/images/about-company.jpg',
+    'images.servicesHeroImage': '/images/services-hero.jpg',
+    
     // Contact Page
     'contact.backToHome': '返回首頁',
     'contact.sendMessage.title': '給我們留言',
@@ -849,6 +870,10 @@ const loadCMSContent = (language: Language, contentFromSupabase?: any) => {
       'services.investment.desc': content.servicesInvestmentDescription || defaultTranslations[language]['services.investment.desc'],
       'services.support.title': content.servicesSupportTitle || defaultTranslations[language]['services.support.title'],
       'services.support.desc': content.servicesSupportDescription || defaultTranslations[language]['services.support.desc'],
+      'services.process.title': content.servicesIPOPProcessTitle || defaultTranslations[language]['services.process.title'],
+      'services.industries.title': content.servicesIndustryExpertiseTitle || defaultTranslations[language]['services.industries.title'],
+      'services.advantages.title': content.servicesKeyAdvantagesTitle || defaultTranslations[language]['services.advantages.title'],
+      'services.nasdaq.title': content.servicesNASDAQAdvantagesTitle || defaultTranslations[language]['services.nasdaq.title'],
       
       // Statistics
       'stats.transactions.number': content.statsTransactionsNumber || defaultTranslations[language]['stats.transactions.number'],
@@ -896,34 +921,48 @@ const loadCMSContent = (language: Language, contentFromSupabase?: any) => {
       'about.backToHome': content.aboutBackToHome || defaultTranslations[language]['about.backToHome'],
       'about.overview.subtitle': content.aboutOverviewSubtitle || defaultTranslations[language]['about.overview.subtitle'],
       'about.overview.title': content.aboutOverviewTitle || defaultTranslations[language]['about.overview.title'],
-      'about.values.title': content.aboutValuesTitle || defaultTranslations[language]['about.values.title'],
+      'about.values.title': content.coreValuesTitle || defaultTranslations[language]['about.values.title'],
       'about.values.description': content.aboutValuesDescription || defaultTranslations[language]['about.values.description'],
-      'about.values.professional.title': content.aboutValuesProfessionalTitle || defaultTranslations[language]['about.values.professional.title'],
-      'about.values.professional.description': content.aboutValuesProfessionalDescription || defaultTranslations[language]['about.values.professional.description'],
-      'about.values.global.title': content.aboutValuesGlobalTitle || defaultTranslations[language]['about.values.global.title'],
-      'about.values.global.description': content.aboutValuesGlobalDescription || defaultTranslations[language]['about.values.global.description'],
-      'about.values.innovation.title': content.aboutValuesInnovationTitle || defaultTranslations[language]['about.values.innovation.title'],
-      'about.values.innovation.description': content.aboutValuesInnovationDescription || defaultTranslations[language]['about.values.innovation.description'],
-      'about.values.client.title': content.aboutValuesClientTitle || defaultTranslations[language]['about.values.client.title'],
-      'about.values.client.description': content.aboutValuesClientDescription || defaultTranslations[language]['about.values.client.description'],
+      'about.values.professional.title': content.coreValue1Title || defaultTranslations[language]['about.values.professional.title'],
+      'about.values.professional.description': content.coreValue1Description || defaultTranslations[language]['about.values.professional.description'],
+      'about.values.global.title': content.coreValue2Title || defaultTranslations[language]['about.values.global.title'],
+      'about.values.global.description': content.coreValue2Description || defaultTranslations[language]['about.values.global.description'],
+      'about.values.innovation.title': content.coreValue3Title || defaultTranslations[language]['about.values.innovation.title'],
+      'about.values.innovation.description': content.coreValue3Description || defaultTranslations[language]['about.values.innovation.description'],
+      'about.values.client.title': content.coreValue4Title || defaultTranslations[language]['about.values.client.title'],
+      'about.values.client.description': content.coreValue4Description || defaultTranslations[language]['about.values.client.description'],
       'about.team.title': content.aboutTeamTitle || defaultTranslations[language]['about.team.title'],
       'about.team.description': content.aboutTeamDescription || defaultTranslations[language]['about.team.description'],
       'about.team.background': content.aboutTeamBackground || defaultTranslations[language]['about.team.background'],
       'about.team.expertise': content.aboutTeamExpertise || defaultTranslations[language]['about.team.expertise'],
-      'about.journey.title': content.aboutJourneyTitle || defaultTranslations[language]['about.journey.title'],
+      'about.team.member1.name': content.teamMember1Name || defaultTranslations[language]['about.team.member1.name'],
+      'about.team.member1.position': content.teamMember1Position || defaultTranslations[language]['about.team.member1.position'],
+      'about.team.member1.background': content.teamMember1Background || defaultTranslations[language]['about.team.member1.background'],
+      'about.team.member1.expertise': content.teamMember1Expertise || defaultTranslations[language]['about.team.member1.expertise'],
+      'about.team.member2.name': content.teamMember2Name || defaultTranslations[language]['about.team.member2.name'],
+      'about.team.member2.position': content.teamMember2Position || defaultTranslations[language]['about.team.member2.position'],
+      'about.team.member2.background': content.teamMember2Background || defaultTranslations[language]['about.team.member2.background'],
+      'about.team.member2.expertise': content.teamMember2Expertise || defaultTranslations[language]['about.team.member2.expertise'],
+      'about.team.member3.name': content.teamMember3Name || defaultTranslations[language]['about.team.member3.name'],
+      'about.team.member3.position': content.teamMember3Position || defaultTranslations[language]['about.team.member3.position'],
+      'about.team.member3.background': content.teamMember3Background || defaultTranslations[language]['about.team.member3.background'],
+      'about.team.member3.expertise': content.teamMember3Expertise || defaultTranslations[language]['about.team.member3.expertise'],
+      'about.journey.title': content.timelineTitle || defaultTranslations[language]['about.journey.title'],
       'about.journey.description': content.aboutJourneyDescription || defaultTranslations[language]['about.journey.description'],
       'about.presence.title': content.aboutPresenceTitle || defaultTranslations[language]['about.presence.title'],
       'about.presence.description': content.aboutPresenceDescription || defaultTranslations[language]['about.presence.description'],
-      'about.presence.london': content.aboutPresenceLondon || defaultTranslations[language]['about.presence.london'],
+      'about.presence.london': content.globalPresenceLondon || defaultTranslations[language]['about.presence.london'],
+      'about.presence.hongkong': content.globalPresenceHongKong || defaultTranslations[language]['about.presence.hongkong'],
+      'about.presence.shenzhen': content.globalPresenceShenzhen || defaultTranslations[language]['about.presence.shenzhen'],
+      'about.presence.guangzhou': content.globalPresenceGuangzhou || defaultTranslations[language]['about.presence.guangzhou'],
+      'about.presence.hefei': content.globalPresenceHefei || defaultTranslations[language]['about.presence.hefei'],
       'about.presence.london.label': content.aboutPresenceLondonLabel || defaultTranslations[language]['about.presence.london.label'],
-      'about.presence.hongkong': content.aboutPresenceHongkong || defaultTranslations[language]['about.presence.hongkong'],
       'about.presence.hongkong.label': content.aboutPresenceHongkongLabel || defaultTranslations[language]['about.presence.hongkong.label'],
-      'about.presence.shenzhen': content.aboutPresenceShenzhen || defaultTranslations[language]['about.presence.shenzhen'],
       'about.presence.shenzhen.label': content.aboutPresenceShenzhenLabel || defaultTranslations[language]['about.presence.shenzhen.label'],
-      'about.milestones.2017': content.aboutMilestones2017 || defaultTranslations[language]['about.milestones.2017'],
-      'about.milestones.2020': content.aboutMilestones2020 || defaultTranslations[language]['about.milestones.2020'],
-      'about.milestones.2022': content.aboutMilestones2022 || defaultTranslations[language]['about.milestones.2022'],
-      'about.milestones.2024': content.aboutMilestones2024 || defaultTranslations[language]['about.milestones.2024'],
+      'about.milestones.2017': (content.milestone1Year && content.milestone1Event) ? `${content.milestone1Year} ${content.milestone1Event}` : defaultTranslations[language]['about.milestones.2017'],
+      'about.milestones.2020': (content.milestone2Year && content.milestone2Event) ? `${content.milestone2Year} ${content.milestone2Event}` : defaultTranslations[language]['about.milestones.2020'],
+      'about.milestones.2022': (content.milestone3Year && content.milestone3Event) ? `${content.milestone3Year} ${content.milestone3Event}` : defaultTranslations[language]['about.milestones.2022'],
+      'about.milestones.2024': (content.milestone4Year && content.milestone4Event) ? `${content.milestone4Year} ${content.milestone4Event}` : defaultTranslations[language]['about.milestones.2024'],
       
       // Services Page
       'services.backToHome': content.servicesBackToHome || defaultTranslations[language]['services.backToHome'],
@@ -1015,6 +1054,13 @@ const loadCMSContent = (language: Language, contentFromSupabase?: any) => {
       'services.cta.description': content.servicesCtaDescription || defaultTranslations[language]['services.cta.description'],
       'services.cta.button1': content.servicesCtaButton1 || defaultTranslations[language]['services.cta.button1'],
       'services.cta.button2': content.servicesCtaButton2 || defaultTranslations[language]['services.cta.button2'],
+      
+      // Image URL fields
+      'images.companyLogo': content.companyLogo || defaultTranslations[language]['images.companyLogo'],
+      'images.indexHeroImage': content.indexHeroImage || defaultTranslations[language]['images.indexHeroImage'],
+      'images.indexAboutImage': content.indexAboutImage || defaultTranslations[language]['images.indexAboutImage'],
+      'images.aboutCompanyImage': content.aboutCompanyImage || defaultTranslations[language]['images.aboutCompanyImage'],
+      'images.servicesHeroImage': content.servicesHeroImage || defaultTranslations[language]['images.servicesHeroImage'],
       
       // Keep default values for other keys
       ...defaultTranslations[language],
