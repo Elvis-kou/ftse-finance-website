@@ -39,22 +39,22 @@ const About = () => {
 
   const teamMembers = [
     {
-      name: 'Queenie',
-      position: 'CEO',
-      background: 'Bachelor in Journalism from Communication University of China, EMBA from HSBC Business School. 20 years of investment management experience.',
-      expertise: 'Real estate, stocks, funds, trusts, futures and derivatives'
+      name: t('about.team.member1.name'),
+      position: t('about.team.member1.position'),
+      background: t('about.team.member1.background'),
+      expertise: t('about.team.member1.expertise')
     },
     {
-      name: 'Jayden',
-      position: 'COO', 
-      background: 'MBA from University of Miami Herbert Business School. 14 years in financial industry.',
-      expertise: 'Capital market transactions, IPOs, PIPE, SPAC, and reverse mergers'
+      name: t('about.team.member2.name'),
+      position: t('about.team.member2.position'),
+      background: t('about.team.member2.background'),
+      expertise: t('about.team.member2.expertise')
     },
     {
-      name: 'Calvin',
-      position: 'Fund Manager',
-      background: 'Applied Mathematics background, MBA from Pace University New York.',
-      expertise: 'Investment analysis, data modeling, and institutional asset management'
+      name: t('about.team.member3.name'),
+      position: t('about.team.member3.position'),
+      background: t('about.team.member3.background'),
+      expertise: t('about.team.member3.expertise')
     }
   ];
 
