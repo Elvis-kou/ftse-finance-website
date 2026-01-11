@@ -10,6 +10,24 @@ if (!supabaseUrl || !supabaseAnonKey) {
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
+// Helper function to convert snake_case/lowercase to camelCase
+const toCamelCase = (obj: Record<string, any>): Record<string, any> => {
+  const camelCaseObj: Record<string, any> = {};
+  for (const [key, value] of Object.entries(obj)) {
+    // Handle fields that are already in camelCase (from newer migrations)
+    if (/[A-Z]/.test(key)) {
+      camelCaseObj[key] = value;
+      continue;
+    }
+    // Convert from lowercase to camelCase
+    const camelKey = key.replace(/([a-z])([a-z]+)/g, (_, firstChar, rest) => {
+      return firstChar + rest.charAt(0).toUpperCase() + rest.slice(1);
+    });
+    camelCaseObj[camelKey] = value;
+  }
+  return camelCaseObj;
+};
+
 // Function to fetch website content from Supabase
 export const fetchWebsiteContent = async (language: string) => {
   try {
@@ -24,7 +42,8 @@ export const fetchWebsiteContent = async (language: string) => {
       return null;
     }
 
-    return data;
+    // Convert database fields to camelCase before returning
+    return toCamelCase(data);
   } catch (error) {
     console.error('Unexpected error fetching website content:', error);
     return null;
@@ -44,7 +63,7 @@ export const subscribeToContentChanges = (language: string, callback: (data: Rec
         filter: `language=eq.${language}`
       },
       (payload) => {
-        callback(payload.new);
+        callback(toCamelCase(payload.new));
       }
     )
     .subscribe();

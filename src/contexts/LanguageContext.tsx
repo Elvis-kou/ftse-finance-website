@@ -1076,10 +1076,10 @@ const loadCMSContent = (language: Language, contentFromSupabase?: Record<string,
       
       // Image URL fields
       'images.companyLogo': content.companyLogo || defaultTranslations[language]['images.companyLogo'],
-      'images.indexHeroImage': content.indexHeroImage || defaultTranslations[language]['images.indexHeroImage'],
-      'images.indexAboutImage': content.indexAboutImage || defaultTranslations[language]['images.indexAboutImage'],
-      'images.aboutCompanyImage': content.aboutCompanyImage || defaultTranslations[language]['images.aboutCompanyImage'],
-      'images.servicesHeroImage': content.servicesHeroImage || defaultTranslations[language]['images.servicesHeroImage'],
+      'images.indexHeroImage': content.heroBackgroundImage || defaultTranslations[language]['images.indexHeroImage'],
+      'images.indexAboutImage': content.aboutTeamImage || defaultTranslations[language]['images.indexAboutImage'],
+      'images.aboutCompanyImage': content.aboutTeamImage || defaultTranslations[language]['images.aboutCompanyImage'],
+      'images.servicesHeroImage': content.servicesBackgroundImage || defaultTranslations[language]['images.servicesHeroImage'],
     };
   } catch (error) {
     console.error('Error loading CMS content:', error);
