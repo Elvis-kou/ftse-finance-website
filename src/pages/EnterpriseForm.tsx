@@ -223,13 +223,13 @@ const EnterpriseForm = () => {
         <div className="mb-8">
           <Link to="/" className="inline-flex items-center text-primary hover:text-primary/80 mb-4">
             <ArrowLeft className="h-4 w-4 mr-2" />
-            Back to Home
+            {t('enterprise.back-to-home')}
           </Link>
           <h1 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
             {t('enterprise.title')}
           </h1>
           <p className="text-lg text-muted-foreground">
-            Please provide comprehensive enterprise information for our IPO assessment and consultation services.
+            {t('enterprise.description')}
           </p>
         </div>
 
@@ -238,10 +238,10 @@ const EnterpriseForm = () => {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Building className="h-5 w-5 text-primary" />
-              Enterprise IPO Information Collection Form
+              {t('enterprise.form.form-title')}
             </CardTitle>
             <CardDescription>
-              Complete all sections to help us provide the most accurate IPO consultation and services.
+              {t('enterprise.form.form-description')}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -249,25 +249,25 @@ const EnterpriseForm = () => {
               
               {/* 基本企业信息 */}
               <div className="space-y-6">
-                <h3 className="text-lg font-semibold text-foreground border-b pb-2">Basic Company Information</h3>
+                <h3 className="text-lg font-semibold text-foreground border-b pb-2">{t('enterprise.form.section.basic-info')}</h3>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="companyName">Company Name (Chinese) *</Label>
+                    <Label htmlFor="companyName">{t('enterprise.form.company-name.cn')} *</Label>
                     <Input
                       id="companyName"
                       value={formData.companyName}
                       onChange={(e) => handleInputChange('companyName', e.target.value)}
-                      placeholder="公司中文名称"
+                      placeholder={t('enterprise.form.placeholder.company-name.cn')}
                       required
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="companyNameEn">Company Name (English) *</Label>
+                    <Label htmlFor="companyNameEn">{t('enterprise.form.company-name.en')} *</Label>
                     <Input
                       id="companyNameEn"
                       value={formData.companyNameEn}
                       onChange={(e) => handleInputChange('companyNameEn', e.target.value)}
-                      placeholder="Company English Name"
+                      placeholder={t('enterprise.form.placeholder.company-name.en')}
                       required
                     />
                   </div>
@@ -275,17 +275,17 @@ const EnterpriseForm = () => {
                 
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="registrationNumber">Business Registration Number *</Label>
+                    <Label htmlFor="registrationNumber">{t('enterprise.form.registration-number')} *</Label>
                     <Input
                       id="registrationNumber"
                       value={formData.registrationNumber}
                       onChange={(e) => handleInputChange('registrationNumber', e.target.value)}
-                      placeholder="营业执照注册号"
+                      placeholder={t('enterprise.form.placeholder.registration-number')}
                       required
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="establishedDate">Established Date *</Label>
+                    <Label htmlFor="establishedDate">{t('enterprise.form.established-date')} *</Label>
                     <Input
                       id="establishedDate"
                       type="date"
@@ -297,34 +297,34 @@ const EnterpriseForm = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="registeredAddress">Registered Address *</Label>
+                  <Label htmlFor="registeredAddress">{t('enterprise.form.registered-address')} *</Label>
                   <Input
                     id="registeredAddress"
                     value={formData.registeredAddress}
                     onChange={(e) => handleInputChange('registeredAddress', e.target.value)}
-                    placeholder="公司注册地址"
+                    placeholder={t('enterprise.form.placeholder.registered-address')}
                     required
                   />
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="businessAddress">Business Address</Label>
+                    <Label htmlFor="businessAddress">{t('enterprise.form.business-address')}</Label>
                     <Input
                       id="businessAddress"
                       value={formData.businessAddress}
                       onChange={(e) => handleInputChange('businessAddress', e.target.value)}
-                      placeholder="实际经营地址"
+                      placeholder={t('enterprise.form.placeholder.business-address')}
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="website">Company Website</Label>
+                    <Label htmlFor="website">{t('enterprise.form.website')}</Label>
                     <Input
                       id="website"
                       type="url"
                       value={formData.website}
                       onChange={(e) => handleInputChange('website', e.target.value)}
-                      placeholder="https://www.company.com"
+                      placeholder={t('enterprise.form.placeholder.website')}
                     />
                   </div>
                 </div>
@@ -332,12 +332,12 @@ const EnterpriseForm = () => {
 
               {/* 行业与业务信息 */}
               <div className="space-y-6">
-                <h3 className="text-lg font-semibold text-foreground border-b pb-2">Industry & Business Information</h3>
+                <h3 className="text-lg font-semibold text-foreground border-b pb-2">{t('enterprise.form.section.industry-info')}</h3>
                 <div className="space-y-2">
-                  <Label htmlFor="industry">Industry *</Label>
+                  <Label htmlFor="industry">{t('enterprise.form.industry')} *</Label>
                   <Select value={formData.industry} onValueChange={(value) => handleInputChange('industry', value)}>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select industry" />
+                      <SelectValue placeholder={t('enterprise.form.select.industry')} />
                     </SelectTrigger>
                     <SelectContent>
                       {industries.map((industry) => (
@@ -350,36 +350,36 @@ const EnterpriseForm = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="businessScope">Business Scope *</Label>
+                  <Label htmlFor="businessScope">{t('enterprise.form.business-scope')} *</Label>
                   <Textarea
                     id="businessScope"
                     value={formData.businessScope}
                     onChange={(e) => handleInputChange('businessScope', e.target.value)}
-                    placeholder="Describe your company's business scope and activities..."
+                    placeholder={t('enterprise.form.placeholder.business-scope')}
                     rows={3}
                     required
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="mainProducts">Main Products/Services *</Label>
+                  <Label htmlFor="mainProducts">{t('enterprise.form.main-products')} *</Label>
                   <Textarea
                     id="mainProducts"
                     value={formData.mainProducts}
                     onChange={(e) => handleInputChange('mainProducts', e.target.value)}
-                    placeholder="Describe your main products or services..."
+                    placeholder={t('enterprise.form.placeholder.main-products')}
                     rows={3}
                     required
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="businessModel">Business Model *</Label>
+                  <Label htmlFor="businessModel">{t('enterprise.form.business-model')} *</Label>
                   <Textarea
                     id="businessModel"
                     value={formData.businessModel}
                     onChange={(e) => handleInputChange('businessModel', e.target.value)}
-                    placeholder="Describe your business model and revenue streams..."
+                    placeholder={t('enterprise.form.placeholder.business-model')}
                     rows={3}
                     required
                   />
@@ -388,16 +388,16 @@ const EnterpriseForm = () => {
 
               {/* 规模信息 */}
               <div className="space-y-6">
-                <h3 className="text-lg font-semibold text-foreground border-b pb-2">Company Scale & Financial Information</h3>
+                <h3 className="text-lg font-semibold text-foreground border-b pb-2">{t('enterprise.form.section.scale-info')}</h3>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="employees">
                       <Users className="h-4 w-4 inline mr-2" />
-                      Number of Employees *
+                      {t('enterprise.form.employees')} *
                     </Label>
                     <Select value={formData.employees} onValueChange={(value) => handleInputChange('employees', value)}>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select employee count" />
+                        <SelectValue placeholder={t('enterprise.form.select.employees')} />
                       </SelectTrigger>
                       <SelectContent>
                         {employeeRanges.map((range) => (
@@ -411,11 +411,11 @@ const EnterpriseForm = () => {
                   <div className="space-y-2">
                     <Label htmlFor="revenue">
                       <DollarSign className="h-4 w-4 inline mr-2" />
-                      Annual Revenue *
+                      {t('enterprise.form.revenue')} *
                     </Label>
                     <Select value={formData.revenue} onValueChange={(value) => handleInputChange('revenue', value)}>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select revenue range" />
+                        <SelectValue placeholder={t('enterprise.form.select.revenue')} />
                       </SelectTrigger>
                       <SelectContent>
                         {revenueRanges.map((range) => (
@@ -430,21 +430,21 @@ const EnterpriseForm = () => {
 
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="netProfit">Net Profit (Last Year)</Label>
+                    <Label htmlFor="netProfit">{t('enterprise.form.net-profit')}</Label>
                     <Input
                       id="netProfit"
                       value={formData.netProfit}
                       onChange={(e) => handleInputChange('netProfit', e.target.value)}
-                      placeholder="$10M"
+                      placeholder={t('enterprise.form.placeholder.net-profit')}
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="totalAssets">Total Assets</Label>
+                    <Label htmlFor="totalAssets">{t('enterprise.form.total-assets')}</Label>
                     <Input
                       id="totalAssets"
                       value={formData.totalAssets}
                       onChange={(e) => handleInputChange('totalAssets', e.target.value)}
-                      placeholder="$50M"
+                      placeholder={t('enterprise.form.placeholder.total-assets')}
                     />
                   </div>
                 </div>
@@ -452,25 +452,25 @@ const EnterpriseForm = () => {
 
               {/* 联系信息 */}
               <div className="space-y-6">
-                <h3 className="text-lg font-semibold text-foreground border-b pb-2">Contact Information</h3>
+                <h3 className="text-lg font-semibold text-foreground border-b pb-2">{t('enterprise.form.section.contact-info')}</h3>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="contactPerson">Contact Person *</Label>
+                    <Label htmlFor="contactPerson">{t('enterprise.form.contact-person')} *</Label>
                     <Input
                       id="contactPerson"
                       value={formData.contactPerson}
                       onChange={(e) => handleInputChange('contactPerson', e.target.value)}
-                      placeholder="Full name"
+                      placeholder={t('enterprise.form.placeholder.contact-person')}
                       required
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="position">Position/Title *</Label>
+                    <Label htmlFor="position">{t('enterprise.form.position')} *</Label>
                     <Input
                       id="position"
                       value={formData.position}
                       onChange={(e) => handleInputChange('position', e.target.value)}
-                      placeholder="CEO, CFO, etc."
+                      placeholder={t('enterprise.form.placeholder.position')}
                       required
                     />
                   </div>
@@ -480,28 +480,28 @@ const EnterpriseForm = () => {
                   <div className="space-y-2">
                     <Label htmlFor="phone">
                       <Phone className="h-4 w-4 inline mr-2" />
-                      Phone Number *
+                      {t('enterprise.form.phone')} *
                     </Label>
                     <Input
                       id="phone"
                       type="tel"
                       value={formData.phone}
                       onChange={(e) => handleInputChange('phone', e.target.value)}
-                      placeholder="+1 (555) 123-4567"
+                      placeholder={t('enterprise.form.placeholder.phone')}
                       required
                     />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="email">
                       <Mail className="h-4 w-4 inline mr-2" />
-                      Email Address *
+                      {t('enterprise.form.email')} *
                     </Label>
                     <Input
                       id="email"
                       type="email"
                       value={formData.email}
                       onChange={(e) => handleInputChange('email', e.target.value)}
-                      placeholder="contact@company.com"
+                      placeholder={t('enterprise.form.placeholder.email')}
                       required
                     />
                   </div>
@@ -510,26 +510,26 @@ const EnterpriseForm = () => {
 
               {/* 股权结构 */}
               <div className="space-y-6">
-                <h3 className="text-lg font-semibold text-foreground border-b pb-2">Ownership Structure</h3>
+                <h3 className="text-lg font-semibold text-foreground border-b pb-2">{t('enterprise.form.section.ownership-info')}</h3>
                 <div className="space-y-2">
-                  <Label htmlFor="shareholderStructure">Shareholder Structure *</Label>
+                  <Label htmlFor="shareholderStructure">{t('enterprise.form.shareholder-structure')} *</Label>
                   <Textarea
                     id="shareholderStructure"
                     value={formData.shareholderStructure}
                     onChange={(e) => handleInputChange('shareholderStructure', e.target.value)}
-                    placeholder="Describe the current shareholder structure and ownership percentages..."
+                    placeholder={t('enterprise.form.placeholder.shareholder-structure')}
                     rows={3}
                     required
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="majorShareholders">Major Shareholders (&gt;5%)</Label>
+                  <Label htmlFor="majorShareholders">{t('enterprise.form.major-shareholders')}</Label>
                   <Textarea
                     id="majorShareholders"
                     value={formData.majorShareholders}
                     onChange={(e) => handleInputChange('majorShareholders', e.target.value)}
-                    placeholder="List major shareholders and their ownership percentages..."
+                    placeholder={t('enterprise.form.placeholder.major-shareholders')}
                     rows={3}
                   />
                 </div>
@@ -537,24 +537,24 @@ const EnterpriseForm = () => {
 
               {/* 财务与审计信息 */}
               <div className="space-y-6">
-                <h3 className="text-lg font-semibold text-foreground border-b pb-2">Financial & Audit Information</h3>
+                <h3 className="text-lg font-semibold text-foreground border-b pb-2">{t('enterprise.form.section.financial-info')}</h3>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="auditFirm">Audit Firm</Label>
+                    <Label htmlFor="auditFirm">{t('enterprise.form.audit-firm')}</Label>
                     <Input
                       id="auditFirm"
                       value={formData.auditFirm}
                       onChange={(e) => handleInputChange('auditFirm', e.target.value)}
-                      placeholder="Name of auditing firm"
+                      placeholder={t('enterprise.form.placeholder.audit-firm')}
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="lastAuditYear">Last Audit Year</Label>
+                    <Label htmlFor="lastAuditYear">{t('enterprise.form.last-audit-year')}</Label>
                     <Input
                       id="lastAuditYear"
                       value={formData.lastAuditYear}
                       onChange={(e) => handleInputChange('lastAuditYear', e.target.value)}
-                      placeholder="2023"
+                      placeholder={t('enterprise.form.placeholder.last-audit-year')}
                     />
                   </div>
                 </div>
@@ -562,26 +562,26 @@ const EnterpriseForm = () => {
 
               {/* IPO相关信息 */}
               <div className="space-y-6">
-                <h3 className="text-lg font-semibold text-foreground border-b pb-2">IPO Related Information</h3>
+                <h3 className="text-lg font-semibold text-foreground border-b pb-2">{t('enterprise.form.section.ipo-info')}</h3>
                 <div className="space-y-2">
-                  <Label htmlFor="ipoReason">Reason for IPO *</Label>
+                  <Label htmlFor="ipoReason">{t('enterprise.form.ipo-reason')} *</Label>
                   <Textarea
                     id="ipoReason"
                     value={formData.ipoReason}
                     onChange={(e) => handleInputChange('ipoReason', e.target.value)}
-                    placeholder="Explain why your company wants to go public..."
+                    placeholder={t('enterprise.form.placeholder.ipo-reason')}
                     rows={3}
                     required
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="fundingPurpose">Use of Funds *</Label>
+                  <Label htmlFor="fundingPurpose">{t('enterprise.form.funding-purpose')} *</Label>
                   <Textarea
                     id="fundingPurpose"
                     value={formData.fundingPurpose}
                     onChange={(e) => handleInputChange('fundingPurpose', e.target.value)}
-                    placeholder="How will the IPO funds be used? (R&D, expansion, debt repayment, etc.)"
+                    placeholder={t('enterprise.form.placeholder.funding-purpose')}
                     rows={3}
                     required
                   />
@@ -589,21 +589,21 @@ const EnterpriseForm = () => {
 
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="expectedAmount">Expected Funding Amount</Label>
+                    <Label htmlFor="expectedAmount">{t('enterprise.form.expected-amount')}</Label>
                     <Input
                       id="expectedAmount"
                       value={formData.expectedAmount}
                       onChange={(e) => handleInputChange('expectedAmount', e.target.value)}
-                      placeholder="$100M"
+                      placeholder={t('enterprise.form.placeholder.expected-amount')}
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="expectedTimeline">Expected IPO Timeline</Label>
+                    <Label htmlFor="expectedTimeline">{t('enterprise.form.expected-timeline')}</Label>
                     <Input
                       id="expectedTimeline"
                       value={formData.expectedTimeline}
                       onChange={(e) => handleInputChange('expectedTimeline', e.target.value)}
-                      placeholder="12-18 months"
+                      placeholder={t('enterprise.form.placeholder.expected-timeline')}
                     />
                   </div>
                 </div>
@@ -611,25 +611,25 @@ const EnterpriseForm = () => {
 
               {/* 法律合规 */}
               <div className="space-y-6">
-                <h3 className="text-lg font-semibold text-foreground border-b pb-2">Legal & Compliance</h3>
+                <h3 className="text-lg font-semibold text-foreground border-b pb-2">{t('enterprise.form.section.legal-info')}</h3>
                 <div className="space-y-2">
-                  <Label htmlFor="legalIssues">Legal Issues or Litigation</Label>
+                  <Label htmlFor="legalIssues">{t('enterprise.form.legal-issues')}</Label>
                   <Textarea
                     id="legalIssues"
                     value={formData.legalIssues}
                     onChange={(e) => handleInputChange('legalIssues', e.target.value)}
-                    placeholder="Describe any ongoing or potential legal issues..."
+                    placeholder={t('enterprise.form.placeholder.legal-issues')}
                     rows={3}
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="complianceStatus">Compliance Status</Label>
+                  <Label htmlFor="complianceStatus">{t('enterprise.form.compliance-status')}</Label>
                   <Textarea
                     id="complianceStatus"
                     value={formData.complianceStatus}
                     onChange={(e) => handleInputChange('complianceStatus', e.target.value)}
-                    placeholder="Current compliance status with relevant regulations..."
+                    placeholder={t('enterprise.form.placeholder.compliance-status')}
                     rows={3}
                   />
                 </div>
@@ -637,37 +637,37 @@ const EnterpriseForm = () => {
 
               {/* 其他信息 */}
               <div className="space-y-6">
-                <h3 className="text-lg font-semibold text-foreground border-b pb-2">Additional Information</h3>
+                <h3 className="text-lg font-semibold text-foreground border-b pb-2">{t('enterprise.form.section.additional-info')}</h3>
                 <div className="space-y-2">
-                  <Label htmlFor="competitiveAdvantage">Competitive Advantages *</Label>
+                  <Label htmlFor="competitiveAdvantage">{t('enterprise.form.competitive-advantages')} *</Label>
                   <Textarea
                     id="competitiveAdvantage"
                     value={formData.competitiveAdvantage}
                     onChange={(e) => handleInputChange('competitiveAdvantage', e.target.value)}
-                    placeholder="What makes your company unique in the market?"
+                    placeholder={t('enterprise.form.placeholder.competitive-advantages')}
                     rows={3}
                     required
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="riskFactors">Risk Factors</Label>
+                  <Label htmlFor="riskFactors">{t('enterprise.form.risk-factors')}</Label>
                   <Textarea
                     id="riskFactors"
                     value={formData.riskFactors}
                     onChange={(e) => handleInputChange('riskFactors', e.target.value)}
-                    placeholder="Identify potential risks to your business..."
+                    placeholder={t('enterprise.form.placeholder.risk-factors')}
                     rows={3}
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="additionalInfo">Additional Information</Label>
+                  <Label htmlFor="additionalInfo">{t('enterprise.form.additional-info')}</Label>
                   <Textarea
                     id="additionalInfo"
                     value={formData.additionalInfo}
                     onChange={(e) => handleInputChange('additionalInfo', e.target.value)}
-                    placeholder="Any other information you'd like to share..."
+                    placeholder={t('enterprise.form.placeholder.additional-info')}
                     rows={3}
                   />
                 </div>
@@ -675,7 +675,7 @@ const EnterpriseForm = () => {
 
               {/* 文件确认 */}
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-foreground border-b pb-2">Document Preparation</h3>
+                <h3 className="text-lg font-semibold text-foreground border-b pb-2">{t('enterprise.form.section.documents')}</h3>
                 <div className="flex items-center space-x-2">
                   <Checkbox
                     id="documentsReady"
@@ -683,8 +683,7 @@ const EnterpriseForm = () => {
                     onCheckedChange={(checked) => handleInputChange('documentsReady', checked as boolean)}
                   />
                   <Label htmlFor="documentsReady" className="text-sm">
-                    I confirm that we have prepared or can provide the necessary documents including financial statements, 
-                    business licenses, audit reports, and other required documentation for IPO consultation.
+                    {t('enterprise.form.documents-ready.label')}
                   </Label>
                 </div>
               </div>
@@ -697,7 +696,7 @@ const EnterpriseForm = () => {
                   disabled={isSubmitting}
                   className="btn-premium min-w-[200px]"
                 >
-                  {isSubmitting ? t('common.loading') : 'Submit IPO Application'}
+                  {isSubmitting ? t('common.loading') : t('enterprise.form.submit')}
                 </Button>
               </div>
             </form>
