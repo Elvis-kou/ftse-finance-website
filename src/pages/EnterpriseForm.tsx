@@ -159,14 +159,14 @@ const EnterpriseForm = () => {
         id: Date.now().toString(),
         ...formData,
         submittedAt: new Date().toISOString(),
-        status: 'New Application'
+        status: t('enterprise.form.status.new-application')
       };
       submissions.push(newSubmission);
       localStorage.setItem('enterpriseSubmissions', JSON.stringify(submissions));
       
       toast({
-        title: 'Application Submitted Successfully',
-        description: 'We will contact you within 24 hours to discuss your IPO requirements.',
+        title: t('enterprise.form.toast.success.title'),
+        description: t('enterprise.form.toast.success.description'),
       });
 
       // Reset form
@@ -207,8 +207,8 @@ const EnterpriseForm = () => {
       });
     } catch (error) {
       toast({
-        title: 'Submission Failed',
-        description: 'Please try again later or contact us directly.',
+        title: t('enterprise.form.toast.error.title'),
+        description: t('enterprise.form.toast.error.description'),
         variant: 'destructive',
       });
     } finally {
