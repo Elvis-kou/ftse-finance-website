@@ -29,7 +29,7 @@ export const Navigation: React.FC = () => {
             <img 
               src={t('images.companyLogo')} 
               alt="FTSE Finance Logo" 
-              className="w-8 h-8 object-contain"
+              className="w-12 h-12 object-contain"
             />
             <span className="text-xl font-bold text-primary">FTSE Finance</span>
           </Link>
