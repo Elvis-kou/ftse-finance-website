@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -7,9 +7,8 @@ import { useLanguage } from '@/contexts/LanguageContext';
 
 export const Navigation: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [companyLogo, setCompanyLogo] = useState<string | null>(null);
   const location = useLocation();
-  const { t, currentLanguage } = useLanguage();
+  const { t } = useLanguage();
 
   const navItems = [
     { path: '/', label: t('nav.home') },
@@ -19,42 +18,6 @@ export const Navigation: React.FC = () => {
     { path: '/contact', label: t('nav.contact') },
   ];
 
-  // Load company logo from admin dashboard
-  useEffect(() => {
-    const loadCompanyLogo = () => {
-      try {
-        const savedContent = localStorage.getItem(`websiteContent_${currentLanguage}`);
-        if (savedContent) {
-          const content = JSON.parse(savedContent);
-          if (content.companyLogo) {
-            setCompanyLogo(content.companyLogo);
-          }
-        }
-      } catch (error) {
-        console.error('Error loading company logo:', error);
-      }
-    };
-
-    loadCompanyLogo();
-
-    // Listen for storage changes (when admin updates logo)
-    const handleStorageChange = (e: StorageEvent) => {
-      if (e.key === `websiteContent_${currentLanguage}` && e.newValue) {
-        try {
-          const content = JSON.parse(e.newValue);
-          if (content.companyLogo) {
-            setCompanyLogo(content.companyLogo);
-          }
-        } catch (error) {
-          console.error('Error parsing updated content:', error);
-        }
-      }
-    };
-
-    window.addEventListener('storage', handleStorageChange);
-    return () => window.removeEventListener('storage', handleStorageChange);
-  }, [currentLanguage]);
-
   const isActive = (path: string) => location.pathname === path;
 
   return (
@@ -63,17 +26,11 @@ export const Navigation: React.FC = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            {companyLogo ? (
-              <img 
-                src={companyLogo} 
-                alt="FTSE Finance Logo" 
-                className="w-8 h-8 object-contain"
-              />
-            ) : (
-              <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary-glow rounded-lg flex items-center justify-center">
-                <TrendingUp className="h-5 w-5 text-white" />
-              </div>
-            )}
+            <img 
+              src={t('images.companyLogo')} 
+              alt="FTSE Finance Logo" 
+              className="w-8 h-8 object-contain"
+            />
             <span className="text-xl font-bold text-primary">FTSE Finance</span>
           </Link>
 
