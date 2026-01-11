@@ -1104,17 +1104,16 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
 
   // Initialize translations and subscribe to changes
   useEffect(() => {
-    // Fetch initial content from Supabase
+    // Fetch initial English content from Supabase (to be used for all languages)
     const fetchInitialContent = async () => {
       try {
         const enContent = await fetchWebsiteContent('en');
-        const zhCNContent = await fetchWebsiteContent('zh-CN');
-        const zhTWContent = await fetchWebsiteContent('zh-TW');
 
+        // Apply English dynamic content to all language versions
         setTranslations({
           en: loadCMSContent('en', enContent),
-          'zh-CN': loadCMSContent('zh-CN', zhCNContent),
-          'zh-TW': loadCMSContent('zh-TW', zhTWContent),
+          'zh-CN': loadCMSContent('zh-CN', enContent),
+          'zh-TW': loadCMSContent('zh-TW', enContent),
         });
       } catch (error) {
         console.error('Error fetching initial content:', error);
@@ -1123,33 +1122,19 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
 
     fetchInitialContent();
 
-    // Subscribe to content changes for each language
+    // Subscribe only to English content changes and update all languages
     const unsubscribeEn = subscribeToContentChanges('en', (newContent) => {
       setTranslations(prev => ({
         ...prev,
-        en: loadCMSContent('en', newContent)
-      }));
-    });
-
-    const unsubscribeZhCN = subscribeToContentChanges('zh-CN', (newContent) => {
-      setTranslations(prev => ({
-        ...prev,
-        'zh-CN': loadCMSContent('zh-CN', newContent)
-      }));
-    });
-
-    const unsubscribeZhTW = subscribeToContentChanges('zh-TW', (newContent) => {
-      setTranslations(prev => ({
-        ...prev,
+        en: loadCMSContent('en', newContent),
+        'zh-CN': loadCMSContent('zh-CN', newContent),
         'zh-TW': loadCMSContent('zh-TW', newContent)
       }));
     });
 
     return () => {
-      // Unsubscribe from all channels
+      // Unsubscribe from the English content channel
       unsubscribeEn();
-      unsubscribeZhCN();
-      unsubscribeZhTW();
     };
   }, []);
 
