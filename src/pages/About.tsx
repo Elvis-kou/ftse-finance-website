@@ -96,6 +96,9 @@ const About = () => {
                 <p>
                   {t('about.expertise')}
                 </p>
+                <p>
+                  {t('about.hongkong-ipo.description')}
+                </p>
               </div>
             </div>
             <div>

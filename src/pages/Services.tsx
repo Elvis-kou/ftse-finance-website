@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowLeft, BarChart3, TrendingUp, Building, Shield, Calculator, Zap, DollarSign, Users, Globe, Target } from 'lucide-react';
+import { ArrowLeft, BarChart3, TrendingUp, Building, Shield, Calculator, Zap, DollarSign, Users, Globe, Target, Anchor } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -73,6 +73,17 @@ const Services = () => {
         t('services.fintech.feature2'),
         t('services.fintech.feature3'),
         t('services.fintech.feature4')
+      ],
+    },
+    {
+      icon: <Anchor className="h-10 w-10 text-primary" />,
+      title: t('services.hongkong-ipo.title'),
+      description: t('services.hongkong-ipo.description'),
+      features: [
+        t('services.hongkong-ipo.feature1'),
+        t('services.hongkong-ipo.feature2'),
+        t('services.hongkong-ipo.feature3'),
+        t('services.hongkong-ipo.feature4')
       ],
     },
   ];

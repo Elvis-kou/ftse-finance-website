@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Shield, TrendingUp, Users, Award, BarChart3, PieChart, Calculator } from 'lucide-react';
+import { ArrowRight, Shield, TrendingUp, Users, Award, BarChart3, PieChart, Calculator, Anchor } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -29,6 +29,11 @@ const Index = () => {
       icon: <Calculator className="h-8 w-8 text-primary" />,
       title: t('services.corporate-finance.title'),
       description: t('services.corporate-finance.description'),
+    },
+    {
+      icon: <Anchor className="h-8 w-8 text-primary" />,
+      title: t('services.hongkong-ipo.title'),
+      description: t('services.hongkong-ipo.description'),
     },
   ];
 
@@ -198,7 +203,7 @@ const Index = () => {
               Comprehensive financial solutions tailored to your business needs
             </p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8">
             {services.map((service, index) => (
               <Card key={index} className="card-elegant hover:shadow-elegant transition-all duration-300">
                 <CardHeader className="text-center">

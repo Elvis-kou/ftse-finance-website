@@ -23,7 +23,7 @@ const defaultTranslations = {
     
     // Hero Section
     'hero.title': 'FTSE FINANCE',
-    'hero.subtitle': 'US IPO & Market Cap Management Solutions',
+    'hero.subtitle': 'US IPO & Market Cap Management Solutions / Hong Kong IPO Cornerstone & Anchor Investment',
     'hero.description': 'Innovative partner for enterprise US stock listing and market value management. With cutting-edge fintech and professional service teams, we help companies break through listing barriers and build efficient market cap management systems.',
     'hero.cta.primary': 'Get Started',
     'hero.cta.secondary': 'Learn More',
@@ -46,6 +46,8 @@ const defaultTranslations = {
     'services.risk-assessment.description': 'Corporate financing, M&A restructuring, and comprehensive capital market operations.',
     'services.corporate-finance.title': 'Post-Listing Support',
     'services.corporate-finance.description': 'Investor relations management, compliance consulting, refinancing, and strategic advisory services.',
+    'services.hongkong-ipo.title': 'Hong Kong IPO Cornerstone & Anchor Investment',
+    'services.hongkong-ipo.description': 'Leveraging Hong Kong capital market connectivity advantages, focusing on top-tier Hong Kong IPO projects with professional investment services.',
     
     // Contact Section
     'contact.title': 'Contact Us',
@@ -155,6 +157,7 @@ const defaultTranslations = {
     'about.company.overview': 'FTSE Finance is positioned as an innovative partner for enterprise US stock listing and market value management. Founded in Hong Kong in 2017 and headquartered in London since 2024, we have successfully assisted multiple companies in completing over $50 billion in transactions.',
     'about.global.presence': 'With offices in Shenzhen, Guangzhou, Hefei, Hong Kong, and London, we serve Chinese private enterprises and overseas companies with comprehensive cross-border investment, financing, and listing services.',
     'about.expertise': 'We specialize in IPO comprehensive solutions, market cap management, investment banking services, and post-listing support, utilizing cutting-edge fintech and quantitative trading models to ensure optimal market performance.',
+    'about.hongkong-ipo.description': 'Leveraging Hong Kong capital market connectivity advantages, we focus on top-tier Hong Kong IPO projects, providing cornerstone and anchor investment services with professional investment research capabilities, extensive capital resources, and mature compliance trading systems.',
     
     // Services Page Details
     'services.investment.title': 'Investment Banking Services',
@@ -302,6 +305,10 @@ const defaultTranslations = {
     'services.fintech.feature2': 'Data-driven analytics',
     'services.fintech.feature3': 'Automated compliance tools',
     'services.fintech.feature4': 'Real-time monitoring',
+    'services.hongkong-ipo.feature1': 'Cornerstone investment services',
+    'services.hongkong-ipo.feature2': 'Anchor investment opportunities',
+    'services.hongkong-ipo.feature3': 'Long-term value positioning',
+    'services.hongkong-ipo.feature4': 'Premium IPO project selection',
     'services.process.title': 'IPO Process Overview',
     'services.process.description': 'Our structured approach ensures efficient and successful public offerings',
     'services.process.pre.title': 'Pre-Listing Preparation',
@@ -370,7 +377,7 @@ const defaultTranslations = {
     
     // Hero Section
     'hero.title': '富时金融',
-    'hero.subtitle': '美股IPO与市值管理解决方案',
+    'hero.subtitle': '美股IPO与市值管理解决方案 / 香港IPO基石与锚定投资',
     'hero.description': '企业美股上市与市值管理的创新驱动型合作伙伴。凭借先进的金融科技和专业服务团队，帮助企业突破上市壁垒，构建高效的市值管理体系。',
     'hero.cta.primary': '开始咨询',
     'hero.cta.secondary': '了解更多',
@@ -393,6 +400,8 @@ const defaultTranslations = {
     'services.risk-assessment.description': '企业投融资与并购重组，全面的资本市场操作。',
     'services.corporate-finance.title': '上市后支持',
     'services.corporate-finance.description': '投资者关系管理、合规咨询、再融资和战略顾问服务。',
+    'services.hongkong-ipo.title': '香港IPO基石与锚定投资',
+    'services.hongkong-ipo.description': '依托香港资本市场互联互通优势，专注于优质香港IPO项目，提供专业投资服务。',
     
     // Contact Section
     'contact.title': '联系我们',
@@ -503,6 +512,7 @@ const defaultTranslations = {
     'about.company.overview': 'FTSE Finance定位于企业美股上市与市值管理的创新驱动型合作伙伴。2017年在香港成立，2024年总部迁至英国伦敦，已成功协助多家公司完成超过500亿美元的交易。',
     'about.global.presence': '在深圳、广州、合肥、香港和伦敦设有办事处，为中国民营企业和海外公司提供全面的跨境投资、融资和上市服务。',
     'about.expertise': '我们专业于IPO综合解决方案、市值管理、投资银行服务和上市后支持，利用先进的金融科技和量化交易模型确保最佳市场表现。',
+    'about.hongkong-ipo.description': '依托香港资本市场互联互通优势，专注于优质香港IPO项目，凭借专业的投资研究能力、丰富的资金资源和成熟的合规交易系统，提供基石和锚定投资服务。',
     
     // Statistics
     'stats.transactions.number': '$500亿+',
@@ -647,6 +657,10 @@ const defaultTranslations = {
     'services.fintech.feature2': '数据驱动分析',
     'services.fintech.feature3': '自动化合规工具',
     'services.fintech.feature4': '实时监控',
+    'services.hongkong-ipo.feature1': '基石投资服务',
+    'services.hongkong-ipo.feature2': '锚定投资机会',
+    'services.hongkong-ipo.feature3': '长期价值定位',
+    'services.hongkong-ipo.feature4': '优质IPO项目选择',
     'services.process.title': 'IPO流程概述',
     'services.process.description': '我们结构化的方法确保高效和成功的公开募股',
     'services.process.pre.title': '上市前准备',
@@ -715,7 +729,7 @@ const defaultTranslations = {
     
     // Hero Section
     'hero.title': '富時金融',
-    'hero.subtitle': '美股IPO與市值管理解決方案',
+    'hero.subtitle': '美股IPO與市值管理解決方案 / 香港IPO基石與錨定投資',
     'hero.description': '企業美股上市與市值管理的創新驅動型合作夥伴。憑藉先進的金融科技和專業服務團隊，幫助企業突破上市壁壘，構建高效的市值管理體系。',
     'hero.cta.primary': '開始諮詢',
     'hero.cta.secondary': '了解更多',
@@ -738,6 +752,8 @@ const defaultTranslations = {
     'services.risk-assessment.description': '企業投融資與併購重組，全面的資本市場操作。',
     'services.corporate-finance.title': '上市後支持',
     'services.corporate-finance.description': '投資者關係管理、合規諮詢、再融資和戰略顧問服務。',
+    'services.hongkong-ipo.title': '香港IPO基石與錨定投資',
+    'services.hongkong-ipo.description': '依托香港資本市場互聯互通優勢，專注於優質香港IPO項目，提供專業投資服務。',
     
     // Contact Section
     'contact.title': '聯繫我們',
@@ -848,6 +864,7 @@ const defaultTranslations = {
     'about.company.overview': 'FTSE Finance定位於企業美股上市與市值管理的創新驅動型合作夥伴。2017年在香港成立，2024年總部遷至英國倫敦，已成功協助多家公司完成超過500億美元的交易。',
     'about.global.presence': '在深圳、廣州、合肥、香港和倫敦設有辦事處，為中國民營企業和海外公司提供全面的跨境投資、融資和上市服務。',
     'about.expertise': '我們專業於IPO綜合解決方案、市值管理、投資銀行服務和上市後支持，利用先進的金融科技和量化交易模型確保最佳市場表現。',
+    'about.hongkong-ipo.description': '依托香港資本市場互聯互通優勢，專注於優質香港IPO項目，憑藉專業的投資研究能力、豐富的資金資源和成熟的合規交易系統，提供基石和錨定投資服務。',
     
     // Services Page Details
     'services.ipo.title': 'IPO綜合解決方案',
@@ -996,6 +1013,10 @@ const defaultTranslations = {
     'services.fintech.feature2': '數據驅動分析',
     'services.fintech.feature3': '自動化合規工具',
     'services.fintech.feature4': '實時監控',
+    'services.hongkong-ipo.feature1': '基石投資服務',
+    'services.hongkong-ipo.feature2': '錨定投資機會',
+    'services.hongkong-ipo.feature3': '長期價值定位',
+    'services.hongkong-ipo.feature4': '優質IPO項目選擇',
     'services.process.title': 'IPO流程概述',
     'services.process.description': '我們結構化的方法確保高效和成功的公開募股',
     'services.process.pre.title': '上市前準備',
